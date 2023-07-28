@@ -1,47 +1,67 @@
 using System;
 using System.IO;
-using System.Reflection.Emit;
 using System.Windows.Forms;
 
 namespace csharpSCConfigBuilder
 {
     public partial class Form1 : Form
     {
-        // Store the path of the last selected file.
         private string lastSelectedFile;
 
         public Form1()
         {
             InitializeComponent();
-        }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            // Create a new instance of OpenFileDialog.
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            // Set initial directory and file filter.
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            openFileDialog.Filter = "C# Files (*.cs)|*.cs|All Files (*.*)|*.*";
-
-            // If a file was previously selected, use it as the initial file.
-            if (!string.IsNullOrEmpty(lastSelectedFile) && File.Exists(lastSelectedFile))
+            // Check and create the "coresysconfigs" folder if it doesn't exist.
+            string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
+            if (!Directory.Exists(folderPath))
             {
-                openFileDialog.FileName = lastSelectedFile;
+                Directory.CreateDirectory(folderPath);
             }
 
-            // Show the dialog and check if the user clicked OK.
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            // Initialize the ComboBox with the list of .cs files from the "coresysconfigs" folder.
+            InitializeComboBox();
+        }
+
+        private void InitializeComboBox()
+        {
+            string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] csFiles = Directory.GetFiles(folderPath, "*.cs");
+                comboBox1.Items.AddRange(csFiles);
+
+                // If a file was previously selected, set it as the selected item.
+                if (!string.IsNullOrEmpty(lastSelectedFile) && File.Exists(lastSelectedFile))
+                {
+                    comboBox1.SelectedItem = lastSelectedFile;
+                }
+            }
+            else
+            {
+                // Directory not found, handle the case when the folder doesn't exist.
+                MessageBox.Show("The 'coresysconfigs' folder does not exist in the application directory.");
+            }
+        }
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Get the selected file path.
+            string selectedFilePath = comboBox1.SelectedItem?.ToString();
+
+            // Check if the selected file path is not null and the file exists.
+            if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
             {
                 // Read the contents of the selected file.
-                string fileContent = File.ReadAllText(openFileDialog.FileName);
+                string fileContent = File.ReadAllText(selectedFilePath);
 
                 // Check if the file contains "new AmmoDef".
                 if (fileContent.Contains("new AmmoDef"))
                 {
-                    // Get the selected file path and store it for the next time.
-                    lastSelectedFile = openFileDialog.FileName;
-
+                    // Here, you can do something with the selected file, now that it has been validated.
+                    // For example, you can display the file path in a label:
+                    label1.Text = selectedFilePath;
                 }
                 else
                 {
@@ -49,7 +69,17 @@ namespace csharpSCConfigBuilder
                     MessageBox.Show("The selected file does not contain 'new AmmoDef'. Please choose a different file.");
                 }
             }
+            else
+            {
+                // Handle the case when no file is selected or the selected file does not exist.
+                // For example, you can clear the label displaying the file path.
+                label1.Text = "";
+            }
         }
 
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,32 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            comboBox1 = new ComboBox();
+            label1 = new Label();
             SuspendLayout();
             // 
-            // button1
+            // comboBox1
             // 
-            button1.Location = new Point(288, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(204, 39);
-            button1.TabIndex = 0;
-            button1.Text = "Open File";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(31, 33);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(757, 23);
+            comboBox1.TabIndex = 1;
+            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(31, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(37, 21);
+            label1.TabIndex = 2;
+            label1.Text = "label1";
+            label1.UseCompatibleTextRendering = true;
+            label1.Click += label1_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
+            Controls.Add(label1);
+            Controls.Add(comboBox1);
             Name = "Form1";
             Text = "Form1";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
-
-        private Button button1;
+        private ComboBox comboBox1;
+        private Label label1;
     }
 }
