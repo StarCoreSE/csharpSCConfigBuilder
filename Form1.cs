@@ -6,7 +6,7 @@ namespace csharpSCConfigBuilder
 {
     public partial class Form1 : Form
     {
-        private string lastSelectedFile;
+        private string lastSelectedFolder;
 
         public Form1()
         {
@@ -25,23 +25,22 @@ namespace csharpSCConfigBuilder
 
         private void InitializeComboBox()
         {
-            string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
-
-            if (Directory.Exists(folderPath))
+            if (Directory.Exists(lastSelectedFolder))
             {
-                string[] csFiles = Directory.GetFiles(folderPath, "*.cs");
+                string[] csFiles = Directory.GetFiles(lastSelectedFolder, "*.cs");
+                comboBox1.Items.Clear();
                 comboBox1.Items.AddRange(csFiles);
 
                 // If a file was previously selected, set it as the selected item.
-                if (!string.IsNullOrEmpty(lastSelectedFile) && File.Exists(lastSelectedFile))
+                if (comboBox1.Items.Count > 0 && !string.IsNullOrEmpty(lastSelectedFolder))
                 {
-                    comboBox1.SelectedItem = lastSelectedFile;
+                    comboBox1.SelectedItem = lastSelectedFolder;
                 }
             }
             else
             {
-                // Directory not found, handle the case when the folder doesn't exist.
-                MessageBox.Show("The 'coresysconfigs' folder does not exist in the application directory.");
+                // Directory not found or empty, clear the ComboBox items.
+                comboBox1.Items.Clear();
             }
         }
 
@@ -59,8 +58,7 @@ namespace csharpSCConfigBuilder
                 // Check if the file contains "new AmmoDef".
                 if (fileContent.Contains("new AmmoDef"))
                 {
-                    // Here, you can do something with the selected file, now that it has been validated.
-                    // For example, you can display the file path in a label:
+                    // Display the file path in a label when it passes validation.
                     label1.Text = selectedFilePath;
                 }
                 else
@@ -77,9 +75,23 @@ namespace csharpSCConfigBuilder
             }
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
+            // Create a new instance of FolderBrowserDialog.
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
+            // Set the initial folder to the last selected folder path from the settings.
+            folderBrowserDialog.SelectedPath = lastSelectedFolder;
+
+            // Show the dialog and check if the user clicked OK.
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected folder path and store it for the next time.
+                lastSelectedFolder = folderBrowserDialog.SelectedPath;
+
+                // Update the ComboBox based on the selected directory.
+                InitializeComboBox();
+            }
         }
     }
 }
