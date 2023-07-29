@@ -46,16 +46,19 @@
             trackBarMaxTrajectory = new TrackBar();
             buttonAmmoSave = new Button();
             labelBaseDamage = new Label();
-            textBox1 = new TextBox();
+            textBoxAmmo = new TextBox();
             trackBarBaseDamage = new TrackBar();
             buttonAmmoSelectDir = new Button();
             labelDisplayAmmoDir = new Label();
             comboBoxAmmoSelect = new ComboBox();
             tabWeapon = new TabPage();
+            buttonWeaponSave = new Button();
+            labelRateOfFire = new Label();
+            trackBarRateOfFire = new TrackBar();
             labelDisplayWeaponDir = new Label();
-            textBox2 = new TextBox();
+            textBoxWeapon = new TextBox();
             buttonHelpWeapon = new Button();
-            button3 = new Button();
+            buttonWeaponSelectDir = new Button();
             comboBoxWeaponSelect = new ComboBox();
             tabControl1.SuspendLayout();
             tabAmmo.SuspendLayout();
@@ -67,6 +70,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMaxTrajectory).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).BeginInit();
             tabWeapon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -97,7 +101,7 @@
             tabAmmo.Controls.Add(trackBarMaxTrajectory);
             tabAmmo.Controls.Add(buttonAmmoSave);
             tabAmmo.Controls.Add(labelBaseDamage);
-            tabAmmo.Controls.Add(textBox1);
+            tabAmmo.Controls.Add(textBoxAmmo);
             tabAmmo.Controls.Add(trackBarBaseDamage);
             tabAmmo.Controls.Add(buttonAmmoSelectDir);
             tabAmmo.Controls.Add(labelDisplayAmmoDir);
@@ -277,16 +281,16 @@
             labelBaseDamage.Text = "BaseDamage";
             labelBaseDamage.TextAlign = ContentAlignment.TopCenter;
             // 
-            // textBox1
+            // textBoxAmmo
             // 
-            textBox1.BackColor = SystemColors.ButtonHighlight;
-            textBox1.Location = new Point(14, 311);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.ScrollBars = ScrollBars.Both;
-            textBox1.Size = new Size(776, 316);
-            textBox1.TabIndex = 30;
+            textBoxAmmo.BackColor = SystemColors.ButtonHighlight;
+            textBoxAmmo.Location = new Point(14, 311);
+            textBoxAmmo.Multiline = true;
+            textBoxAmmo.Name = "textBoxAmmo";
+            textBoxAmmo.ReadOnly = true;
+            textBoxAmmo.ScrollBars = ScrollBars.Both;
+            textBoxAmmo.Size = new Size(776, 316);
+            textBoxAmmo.TabIndex = 30;
             // 
             // trackBarBaseDamage
             // 
@@ -332,10 +336,13 @@
             // 
             // tabWeapon
             // 
+            tabWeapon.Controls.Add(buttonWeaponSave);
+            tabWeapon.Controls.Add(labelRateOfFire);
+            tabWeapon.Controls.Add(trackBarRateOfFire);
             tabWeapon.Controls.Add(labelDisplayWeaponDir);
-            tabWeapon.Controls.Add(textBox2);
+            tabWeapon.Controls.Add(textBoxWeapon);
             tabWeapon.Controls.Add(buttonHelpWeapon);
-            tabWeapon.Controls.Add(button3);
+            tabWeapon.Controls.Add(buttonWeaponSelectDir);
             tabWeapon.Controls.Add(comboBoxWeaponSelect);
             tabWeapon.Location = new Point(4, 24);
             tabWeapon.Name = "tabWeapon";
@@ -344,6 +351,38 @@
             tabWeapon.TabIndex = 1;
             tabWeapon.Text = "Weapon";
             tabWeapon.UseVisualStyleBackColor = true;
+            // 
+            // buttonWeaponSave
+            // 
+            buttonWeaponSave.Location = new Point(374, 282);
+            buttonWeaponSave.Name = "buttonWeaponSave";
+            buttonWeaponSave.Size = new Size(75, 23);
+            buttonWeaponSave.TabIndex = 47;
+            buttonWeaponSave.Text = "Save";
+            buttonWeaponSave.UseVisualStyleBackColor = true;
+            // 
+            // labelRateOfFire
+            // 
+            labelRateOfFire.AutoSize = true;
+            labelRateOfFire.Location = new Point(56, 157);
+            labelRateOfFire.Name = "labelRateOfFire";
+            labelRateOfFire.Size = new Size(62, 15);
+            labelRateOfFire.TabIndex = 46;
+            labelRateOfFire.Text = "RateOfFire";
+            labelRateOfFire.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // trackBarRateOfFire
+            // 
+            trackBarRateOfFire.BackColor = SystemColors.ControlLightLight;
+            trackBarRateOfFire.Location = new Point(14, 175);
+            trackBarRateOfFire.Maximum = 3600;
+            trackBarRateOfFire.Minimum = 1;
+            trackBarRateOfFire.Name = "trackBarRateOfFire";
+            trackBarRateOfFire.RightToLeft = RightToLeft.No;
+            trackBarRateOfFire.Size = new Size(163, 45);
+            trackBarRateOfFire.TabIndex = 45;
+            trackBarRateOfFire.Value = 1;
+            trackBarRateOfFire.ValueChanged += trackBarRateOfFire_ValueChanged;
             // 
             // labelDisplayWeaponDir
             // 
@@ -355,16 +394,16 @@
             labelDisplayWeaponDir.Text = "Directory";
             labelDisplayWeaponDir.UseCompatibleTextRendering = true;
             // 
-            // textBox2
+            // textBoxWeapon
             // 
-            textBox2.BackColor = SystemColors.ButtonHighlight;
-            textBox2.Location = new Point(14, 311);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.ScrollBars = ScrollBars.Both;
-            textBox2.Size = new Size(776, 316);
-            textBox2.TabIndex = 43;
+            textBoxWeapon.BackColor = SystemColors.ButtonHighlight;
+            textBoxWeapon.Location = new Point(14, 311);
+            textBoxWeapon.Multiline = true;
+            textBoxWeapon.Name = "textBoxWeapon";
+            textBoxWeapon.ReadOnly = true;
+            textBoxWeapon.ScrollBars = ScrollBars.Both;
+            textBoxWeapon.Size = new Size(776, 316);
+            textBoxWeapon.TabIndex = 43;
             // 
             // buttonHelpWeapon
             // 
@@ -376,14 +415,15 @@
             buttonHelpWeapon.UseVisualStyleBackColor = true;
             buttonHelpWeapon.Click += buttonHelpWeapon_Click;
             // 
-            // button3
+            // buttonWeaponSelectDir
             // 
-            button3.Location = new Point(352, 6);
-            button3.Name = "button3";
-            button3.Size = new Size(118, 23);
-            button3.TabIndex = 41;
-            button3.Text = "Select Directory";
-            button3.UseVisualStyleBackColor = true;
+            buttonWeaponSelectDir.Location = new Point(352, 6);
+            buttonWeaponSelectDir.Name = "buttonWeaponSelectDir";
+            buttonWeaponSelectDir.Size = new Size(118, 23);
+            buttonWeaponSelectDir.TabIndex = 41;
+            buttonWeaponSelectDir.Text = "Select Directory";
+            buttonWeaponSelectDir.UseVisualStyleBackColor = true;
+            buttonWeaponSelectDir.Click += buttonWeaponSelectDir_Click;
             // 
             // comboBoxWeaponSelect
             // 
@@ -415,6 +455,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).EndInit();
             tabWeapon.ResumeLayout(false);
             tabWeapon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).EndInit();
             ResumeLayout(false);
         }
 
@@ -435,7 +476,7 @@
         private TrackBar trackBarMaxTrajectory;
         private Button buttonAmmoSave;
         private Label labelBaseDamage;
-        private TextBox textBox1;
+        private TextBox textBoxAmmo;
         private TrackBar trackBarBaseDamage;
         private Button buttonAmmoSelectDir;
         private Label labelDisplayAmmoDir;
@@ -444,9 +485,12 @@
         private TabPage tabAmmo;
         private TabPage tabWeapon;
         private Button buttonHelpWeapon;
-        private Button button3;
+        private Button buttonWeaponSelectDir;
         private ComboBox comboBoxWeaponSelect;
         private Label labelDisplayWeaponDir;
-        private TextBox textBox2;
+        private TextBox textBoxWeapon;
+        private Label labelRateOfFire;
+        private TrackBar trackBarRateOfFire;
+        private Button buttonWeaponSave;
     }
 }

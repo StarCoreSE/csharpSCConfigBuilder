@@ -26,18 +26,9 @@ namespace csharpSCConfigBuilder
             }
 
             // Initialize the ComboBox with the list of .cs files from the "coresysconfigs" folder.
-            InitializeComboBox();
+            InitializeAmmoComboBox();
 
-            // Wire up the ValueChanged event of trackBar1, trackBar2, trackBar3, and trackBar4 to their respective event handlers.
-            trackBarBaseDamage.ValueChanged += trackBar1_ValueChanged;
-            trackBarMaxTrajectory.ValueChanged += trackBar2_ValueChanged;
-            trackBarDesiredSpeed.ValueChanged += trackBar3_ValueChanged;
-            trackBarMaxLifetime.ValueChanged += trackBar4_ValueChanged;
 
-            // Set the event handlers for the track bars' ValueChanged events
-            trackBarRed.ValueChanged += trackBarRed_ValueChanged;
-            trackBarGreen.ValueChanged += trackBarGreen_ValueChanged;
-            trackBarBlue.ValueChanged += trackBarBlue_ValueChanged;
 
             // Initialize the color controls
             UpdateColorControls();
@@ -45,7 +36,7 @@ namespace csharpSCConfigBuilder
 
 
 
-        private void InitializeComboBox()
+        private void InitializeAmmoComboBox()
         {
             if (Directory.Exists(lastSelectedFolder))
             {
@@ -84,7 +75,7 @@ namespace csharpSCConfigBuilder
                     labelDisplayAmmoDir.Text = selectedFilePath;
 
                     // Set the file content as the text of the read-only TextBox.
-                    textBox1.Text = fileContent;
+                    textBoxAmmo.Text = fileContent;
 
                     // Parse and set the initial BaseDamage, MaxTrajectory, DesiredSpeed, and MaxLifetime values.
                     UpdateBaseDamage(fileContent);
@@ -106,7 +97,7 @@ namespace csharpSCConfigBuilder
                 // Handle the case when no file is selected or the selected file does not exist.
                 // For example, you can clear the label displaying the file path and the TextBox.
                 labelDisplayAmmoDir.Text = "";
-                textBox1.Text = "";
+                textBoxAmmo.Text = "";
             }
         }
 
@@ -196,7 +187,7 @@ namespace csharpSCConfigBuilder
                 Properties.Settings.Default.Save();
 
                 // Update the ComboBox based on the selected directory.
-                InitializeComboBox();
+                InitializeAmmoComboBox();
             }
         }
 
@@ -318,7 +309,7 @@ namespace csharpSCConfigBuilder
             File.WriteAllText(selectedFilePath, newFileContent);
 
             // Restore the scroll position.
-            textBox1.Text = newFileContent;
+            textBoxAmmo.Text = newFileContent;
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -343,7 +334,132 @@ namespace csharpSCConfigBuilder
 
         private void comboBoxWeaponSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Get the selected file path.
+            selectedFilePath = comboBoxWeaponSelect.SelectedItem?.ToString();
 
+            // Check if the selected file path is not null and the file exists.
+            if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
+            {
+                // Read the contents of the selected file.
+                string fileContent = File.ReadAllText(selectedFilePath);
+
+                // Check if the file contains "new WeaponDefinition" (replace with the correct identifier for weapon definitions).
+                if (fileContent.Contains("new WeaponDefinition"))
+                {
+                    // Display the file path in a label when it passes validation.
+                    labelDisplayWeaponDir.Text = selectedFilePath;
+
+                    // Set the file content as the text of the read-only TextBox.
+                    textBoxWeapon.Text = fileContent;
+
+                    // Parse and set the initial values for weapon-related parameters.
+                    UpdateWeaponParameters(fileContent);
+
+                    // Additional logic for updating controls specific to the weapon tab can be added here.
+
+                    // For example, if you have sliders or numeric up-down controls for weapon stats, you can update them here.
+
+                    // For color controls, if they are specific to the weapon tab, you can handle them separately here.
+
+                    // For updating the RGB values, you can call the corresponding UpdateColorControls method here, or update them in a separate method for color controls related to the weapon tab.
+                }
+                else
+                {
+                    // Display an error message if the selected file doesn't contain "new WeaponDefinition".
+                    MessageBox.Show("The selected file does not contain 'new WeaponDefinition'. Please choose a different file.");
+                }
+            }
+            else
+            {
+                // Handle the case when no file is selected or the selected file does not exist.
+                // For example, you can clear the label displaying the file path and the TextBox.
+                labelDisplayWeaponDir.Text = "";
+                textBoxWeapon.Text = "";
+            }
+        }
+
+        private void buttonWeaponSelectDir_Click(object sender, EventArgs e)
+        {
+            // Create a new instance of FolderBrowserDialog.
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+
+            // Set the initial folder to the last selected folder path from the settings.
+            folderBrowserDialog.SelectedPath = lastSelectedFolder;
+
+            // Show the dialog and check if the user clicked OK.
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected folder path and store it for the next time.
+                lastSelectedFolder = folderBrowserDialog.SelectedPath;
+
+                // Save the last selected folder path to application settings.
+                Properties.Settings.Default.LastSelectedFolder = lastSelectedFolder;
+                Properties.Settings.Default.Save();
+
+                // Update the ComboBox based on the selected directory.
+                InitializeWeaponComboBox();
+            }
+        }
+
+        private void InitializeWeaponComboBox()
+        {
+            if (Directory.Exists(lastSelectedFolder))
+            {
+                string[] csFiles = Directory.GetFiles(lastSelectedFolder, "*.cs");
+                comboBoxWeaponSelect.Items.Clear();
+                comboBoxWeaponSelect.Items.AddRange(csFiles);
+
+                // If a file was previously selected, set it as the selected item.
+                if (comboBoxWeaponSelect.Items.Count > 0 && !string.IsNullOrEmpty(selectedFilePath))
+                {
+                    comboBoxWeaponSelect.SelectedItem = selectedFilePath;
+                }
+            }
+            else
+            {
+                // Directory not found or empty, clear the ComboBox items.
+                comboBoxWeaponSelect.Items.Clear();
+            }
+        }
+
+        private void UpdateWeaponParameters(string fileContent)
+        {
+            // Example: Get RateOfFire from the fileContent using regular expressions
+            int RateOfFire = GetConfigValueFromRegex(fileContent, @"RateOfFire = (\d+)");
+
+            // Update the slider or numeric up-down control for RateOfFire
+            trackBarRateOfFire.Value = RateOfFire;
+            labelRateOfFire.Text = $"Rate of Fire: {RateOfFire}";
+        }
+
+        private void buttonWeaponSave_Click(object sender, EventArgs e)
+        {
+            // Check if a file is selected
+            if (string.IsNullOrEmpty(selectedFilePath) || !File.Exists(selectedFilePath))
+            {
+                MessageBox.Show("Please select a weapon config file before saving the values.");
+                return;
+            }
+
+            // Read the contents of the selected file.
+            string fileContent = File.ReadAllText(selectedFilePath);
+
+            // Update the weapon-specific parameters in the file.
+            string newFileContent = Regex.Replace(fileContent, @"RateOfFire = \d+", $"RateOfFire = {trackBarRateOfFire.Value}");
+
+            // If you have other sliders or numeric up-down controls for weapon stats, you can update them similarly here.
+
+            // Save the modified contents back to the file.
+            File.WriteAllText(selectedFilePath, newFileContent);
+
+            // Restore the scroll position.
+            textBoxWeapon.Text = newFileContent;
+        }
+
+        private void trackBarRateOfFire_ValueChanged(object sender, EventArgs e)
+        {
+            // Update the label displaying the Rate of Fire value in real-time.
+            labelRateOfFire.Text = $"Rate of Fire = {trackBarRateOfFire.Value}";
         }
 
 
