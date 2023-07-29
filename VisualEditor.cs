@@ -29,10 +29,10 @@ namespace csharpSCConfigBuilder
             InitializeComboBox();
 
             // Wire up the ValueChanged event of trackBar1, trackBar2, trackBar3, and trackBar4 to their respective event handlers.
-            trackBar1.ValueChanged += trackBar1_ValueChanged;
-            trackBar2.ValueChanged += trackBar2_ValueChanged;
-            trackBar3.ValueChanged += trackBar3_ValueChanged;
-            trackBar4.ValueChanged += trackBar4_ValueChanged;
+            trackBarBaseDamage.ValueChanged += trackBar1_ValueChanged;
+            trackBarMaxTrajectory.ValueChanged += trackBar2_ValueChanged;
+            trackBarDesiredSpeed.ValueChanged += trackBar3_ValueChanged;
+            trackBarMaxLifetime.ValueChanged += trackBar4_ValueChanged;
 
             // Set the event handlers for the track bars' ValueChanged events
             trackBarRed.ValueChanged += trackBarRed_ValueChanged;
@@ -81,7 +81,7 @@ namespace csharpSCConfigBuilder
                 if (fileContent.Contains("new AmmoDef"))
                 {
                     // Display the file path in a label when it passes validation.
-                    labelDirectory.Text = selectedFilePath;
+                    labelDisplayAmmoDir.Text = selectedFilePath;
 
                     // Set the file content as the text of the read-only TextBox.
                     textBox1.Text = fileContent;
@@ -105,7 +105,7 @@ namespace csharpSCConfigBuilder
             {
                 // Handle the case when no file is selected or the selected file does not exist.
                 // For example, you can clear the label displaying the file path and the TextBox.
-                labelDirectory.Text = "";
+                labelDisplayAmmoDir.Text = "";
                 textBox1.Text = "";
             }
         }
@@ -128,53 +128,53 @@ namespace csharpSCConfigBuilder
         private void UpdateBaseDamage(string fileContent)
         {
             int baseDamage = GetConfigValueFromRegex(fileContent, @"BaseDamage = (\d+)");
-            trackBar1.Value = baseDamage;
+            trackBarBaseDamage.Value = baseDamage;
             labelBaseDamage.Text = $"BaseDamage = {baseDamage}";
         }
 
         private void UpdateMaxTrajectory(string fileContent)
         {
             int maxTrajectory = GetConfigValueFromRegex(fileContent, @"MaxTrajectory = (\d+)");
-            trackBar2.Value = maxTrajectory;
+            trackBarMaxTrajectory.Value = maxTrajectory;
             labelMaxTrajectory.Text = $"MaxTrajectory = {maxTrajectory}";
         }
 
         private void UpdateDesiredSpeed(string fileContent)
         {
             int desiredSpeed = GetConfigValueFromRegex(fileContent, @"DesiredSpeed = (\d+)");
-            trackBar3.Value = desiredSpeed;
+            trackBarDesiredSpeed.Value = desiredSpeed;
             labelDesiredSpeed.Text = $"DesiredSpeed = {desiredSpeed}";
         }
 
         private void UpdateMaxLifetime(string fileContent)
         {
             int maxLifetime = GetConfigValueFromRegex(fileContent, @"MaxLifeTime = (\d+)");
-            trackBar4.Value = maxLifetime;
+            trackBarMaxLifetime.Value = maxLifetime;
             labelMaxLifeTime.Text = $"MaxLifeTime = {maxLifetime}";
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the BaseDamage value.
-            labelBaseDamage.Text = $"BaseDamage = {trackBar1.Value}";
+            labelBaseDamage.Text = $"BaseDamage = {trackBarBaseDamage.Value}";
         }
 
         private void trackBar2_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the MaxTrajectory value.
-            labelMaxTrajectory.Text = $"MaxTrajectory = {trackBar2.Value}";
+            labelMaxTrajectory.Text = $"MaxTrajectory = {trackBarMaxTrajectory.Value}";
         }
 
         private void trackBar3_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the DesiredSpeed value.
-            labelDesiredSpeed.Text = $"DesiredSpeed = {trackBar3.Value}";
+            labelDesiredSpeed.Text = $"DesiredSpeed = {trackBarDesiredSpeed.Value}";
         }
 
         private void trackBar4_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the MaxLifetime value.
-            labelMaxLifeTime.Text = $"MaxLifeTime = {trackBar4.Value}";
+            labelMaxLifeTime.Text = $"MaxLifeTime = {trackBarMaxLifetime.Value}";
         }
 
         private void buttonAmmoSelectDir_Click(object sender, EventArgs e)
@@ -305,10 +305,10 @@ namespace csharpSCConfigBuilder
             string fileContent = File.ReadAllText(selectedFilePath);
 
             // Update the BaseDamage, MaxTrajectory, DesiredSpeed, and MaxLifetime values in the file.
-            string newFileContent = Regex.Replace(fileContent, @"BaseDamage = \d+", $"BaseDamage = {trackBar1.Value}");
-            newFileContent = Regex.Replace(newFileContent, @"MaxTrajectory = \d+", $"MaxTrajectory = {trackBar2.Value}");
-            newFileContent = Regex.Replace(newFileContent, @"DesiredSpeed = \d+", $"DesiredSpeed = {trackBar3.Value}");
-            newFileContent = Regex.Replace(newFileContent, @"MaxLifeTime = \d+", $"MaxLifeTime = {trackBar4.Value}");
+            string newFileContent = Regex.Replace(fileContent, @"BaseDamage = \d+", $"BaseDamage = {trackBarBaseDamage.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"MaxTrajectory = \d+", $"MaxTrajectory = {trackBarMaxTrajectory.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"DesiredSpeed = \d+", $"DesiredSpeed = {trackBarDesiredSpeed.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"MaxLifeTime = \d+", $"MaxLifeTime = {trackBarMaxLifetime.Value}");
 
             // Replace the existing Color line with the updated RGB values from the track bars.
             newFileContent = Regex.Replace(newFileContent, @"Color\s*=\s*Color\s*\(red:\s*\d+,\s*green:\s*\d+,\s*blue:\s*\d+,\s*alpha:\s*[\d.]+f\s*\)",
@@ -329,6 +329,23 @@ namespace csharpSCConfigBuilder
                 helpForm.ShowDialog();
             }
         }
+
+        private void buttonHelpWeapon_Click(object sender, EventArgs e)
+        {
+
+            // Create and show the HelpForm as a dialog
+            using (var helpForm = new HelpFormWeapon())
+            {
+                helpForm.ShowDialog();
+            }
+
+        }
+
+        private void comboBoxWeaponSelect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
 
     }
 

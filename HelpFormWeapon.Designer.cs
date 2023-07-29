@@ -1,6 +1,6 @@
 ﻿namespace csharpSCConfigBuilder
 {
-    partial class HelpFormAmmo
+    partial class HelpFormWeapon
     {
         /// <summary>
         /// Required designer variable.
@@ -28,35 +28,34 @@
         /// </summary>
         private void InitializeComponent()
         {
-            labelHelp = new Label();
+            label1 = new Label();
             SuspendLayout();
             // 
-            // labelHelp
+            // label1
             // 
-            labelHelp.AutoSize = true;
-            labelHelp.Location = new Point(12, 9);
-            labelHelp.Name = "labelHelp";
-            labelHelp.Size = new Size(27, 15);
-            labelHelp.TabIndex = 0;
-            labelHelp.Text = "Test";
+            label1.AutoSize = true;
+            label1.Location = new Point(19, 12);
+            label1.Name = "label1";
+            label1.Size = new Size(26, 15);
+            label1.TabIndex = 0;
+            label1.Text = "test";
             // 
-            // HelpFormAmmo
+            // HelpFormWeapon
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(453, 444);
-            Controls.Add(labelHelp);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "HelpFormAmmo";
+            Controls.Add(label1);
+            Name = "HelpFormWeapon";
             StartPosition = FormStartPosition.CenterParent;
             Tag = "VisualEditor";
-            Text = "HelpFormAmmo";
+            Text = "HelpFormWeapon";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Label labelHelp;
+        private Label label1;
     }
 }
