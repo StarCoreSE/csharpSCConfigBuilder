@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             comboBox1 = new ComboBox();
-            label1 = new Label();
+            labelDirectory = new Label();
             button1 = new Button();
             label2 = new Label();
             trackBar1 = new TrackBar();
@@ -38,8 +38,15 @@
             button2 = new Button();
             labelMaxTrajectory = new Label();
             trackBar2 = new TrackBar();
+            labelDesiredSpeed = new Label();
+            trackBar3 = new TrackBar();
+            labelMaxLifeTime = new Label();
+            trackBar4 = new TrackBar();
+            buttonHelp = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar4).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
@@ -51,15 +58,15 @@
             comboBox1.TabIndex = 1;
             comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             // 
-            // label1
+            // labelDirectory
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(5, 614);
-            label1.Name = "label1";
-            label1.Size = new Size(54, 21);
-            label1.TabIndex = 2;
-            label1.Text = "Directory";
-            label1.UseCompatibleTextRendering = true;
+            labelDirectory.AutoSize = true;
+            labelDirectory.Location = new Point(12, 614);
+            labelDirectory.Name = "labelDirectory";
+            labelDirectory.Size = new Size(54, 21);
+            labelDirectory.TabIndex = 2;
+            labelDirectory.Text = "Directory";
+            labelDirectory.UseCompatibleTextRendering = true;
             // 
             // button1
             // 
@@ -74,7 +81,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(5, 635);
+            label2.Location = new Point(12, 635);
             label2.Name = "label2";
             label2.Size = new Size(81, 15);
             label2.TabIndex = 4;
@@ -112,7 +119,7 @@
             // 
             // button2
             // 
-            button2.Location = new Point(378, 252);
+            button2.Location = new Point(353, 252);
             button2.Name = "button2";
             button2.Size = new Size(75, 23);
             button2.TabIndex = 8;
@@ -140,11 +147,65 @@
             trackBar2.TabIndex = 9;
             trackBar2.Value = 1;
             // 
+            // labelDesiredSpeed
+            // 
+            labelDesiredSpeed.AutoSize = true;
+            labelDesiredSpeed.Location = new Point(77, 165);
+            labelDesiredSpeed.Name = "labelDesiredSpeed";
+            labelDesiredSpeed.Size = new Size(78, 15);
+            labelDesiredSpeed.TabIndex = 12;
+            labelDesiredSpeed.Text = "DesiredSpeed";
+            // 
+            // trackBar3
+            // 
+            trackBar3.Location = new Point(42, 183);
+            trackBar3.Maximum = 10000;
+            trackBar3.Minimum = 1;
+            trackBar3.Name = "trackBar3";
+            trackBar3.RightToLeft = RightToLeft.No;
+            trackBar3.Size = new Size(163, 45);
+            trackBar3.TabIndex = 11;
+            trackBar3.Value = 1;
+            // 
+            // labelMaxLifeTime
+            // 
+            labelMaxLifeTime.AutoSize = true;
+            labelMaxLifeTime.Location = new Point(245, 165);
+            labelMaxLifeTime.Name = "labelMaxLifeTime";
+            labelMaxLifeTime.Size = new Size(75, 15);
+            labelMaxLifeTime.TabIndex = 14;
+            labelMaxLifeTime.Text = "MaxLifeTime";
+            // 
+            // trackBar4
+            // 
+            trackBar4.Location = new Point(211, 183);
+            trackBar4.Maximum = 3600;
+            trackBar4.Minimum = 1;
+            trackBar4.Name = "trackBar4";
+            trackBar4.RightToLeft = RightToLeft.No;
+            trackBar4.Size = new Size(163, 45);
+            trackBar4.TabIndex = 13;
+            trackBar4.Value = 1;
+            // 
+            // buttonHelp
+            // 
+            buttonHelp.Location = new Point(12, 9);
+            buttonHelp.Name = "buttonHelp";
+            buttonHelp.Size = new Size(47, 23);
+            buttonHelp.TabIndex = 15;
+            buttonHelp.Text = "?";
+            buttonHelp.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 659);
+            Controls.Add(buttonHelp);
+            Controls.Add(labelMaxLifeTime);
+            Controls.Add(trackBar4);
+            Controls.Add(labelDesiredSpeed);
+            Controls.Add(trackBar3);
             Controls.Add(labelMaxTrajectory);
             Controls.Add(trackBar2);
             Controls.Add(button2);
@@ -153,19 +214,22 @@
             Controls.Add(trackBar1);
             Controls.Add(label2);
             Controls.Add(button1);
-            Controls.Add(label1);
+            Controls.Add(labelDirectory);
             Controls.Add(comboBox1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Form1";
             Text = "SCConfigBuilder";
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar4).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
         private ComboBox comboBox1;
-        private Label label1;
+        private Label labelDirectory;
         private Button button1;
         private Label label2;
         private TrackBar trackBar1;
@@ -174,5 +238,10 @@
         private Button button2;
         private Label labelMaxTrajectory;
         private TrackBar trackBar2;
+        private Label labelDesiredSpeed;
+        private TrackBar trackBar3;
+        private Label labelMaxLifeTime;
+        private TrackBar trackBar4;
+        private Button buttonHelp;
     }
 }

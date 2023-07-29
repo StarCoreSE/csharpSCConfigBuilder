@@ -6,8 +6,8 @@ private AmmoDef Example_Ammo => new AmmoDef
     NoGridOrArmorScaling = true, 
     Trajectory = new TrajectoryDef
     {
-		MaxLifeTime = 3600,
-		MaxTrajectory = 6397,
+		MaxLifeTime = 980,
+		MaxTrajectory = 3089,
 		DesiredSpeed = 5000,
     },
     AmmoGraphics = new GraphicDef

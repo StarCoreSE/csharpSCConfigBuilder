@@ -14,6 +14,8 @@ namespace csharpSCConfigBuilder
         {
             InitializeComponent();
 
+            buttonHelp.Click += buttonHelp_Click;
+
             // Check and create the "coresysconfigs" folder if it doesn't exist.
             string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
             if (!Directory.Exists(folderPath))
@@ -24,11 +26,21 @@ namespace csharpSCConfigBuilder
             // Initialize the ComboBox with the list of .cs files from the "coresysconfigs" folder.
             InitializeComboBox();
 
-            // Wire up the ValueChanged event of trackBar1 and trackBar2 to their respective event handlers.
+            // Wire up the ValueChanged event of trackBar1, trackBar2, trackBar3, and trackBar4 to their respective event handlers.
             trackBar1.ValueChanged += trackBar1_ValueChanged;
             trackBar2.ValueChanged += trackBar2_ValueChanged;
+            trackBar3.ValueChanged += trackBar3_ValueChanged;
+            trackBar4.ValueChanged += trackBar4_ValueChanged;
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            // Create and show the HelpForm as a dialog
+            using (var helpForm = new HelpForm())
+            {
+                helpForm.ShowDialog();
+            }
+        }
 
         private void InitializeComboBox()
         {
@@ -66,14 +78,16 @@ namespace csharpSCConfigBuilder
                 if (fileContent.Contains("new AmmoDef"))
                 {
                     // Display the file path in a label when it passes validation.
-                    label1.Text = selectedFilePath;
+                    labelDirectory.Text = selectedFilePath;
 
                     // Set the file content as the text of the read-only TextBox.
                     textBox1.Text = fileContent;
 
-                    // Parse and set the initial BaseDamage and MaxTrajectory values.
+                    // Parse and set the initial BaseDamage, MaxTrajectory, DesiredSpeed, and MaxLifetime values.
                     UpdateBaseDamage(fileContent);
                     UpdateMaxTrajectory(fileContent);
+                    UpdateDesiredSpeed(fileContent);
+                    UpdateMaxLifetime(fileContent);
                 }
                 else
                 {
@@ -85,7 +99,7 @@ namespace csharpSCConfigBuilder
             {
                 // Handle the case when no file is selected or the selected file does not exist.
                 // For example, you can clear the label displaying the file path and the TextBox.
-                label1.Text = "";
+                labelDirectory.Text = "";
                 textBox1.Text = "";
             }
         }
@@ -119,6 +133,20 @@ namespace csharpSCConfigBuilder
             labelMaxTrajectory.Text = $"MaxTrajectory = {maxTrajectory}";
         }
 
+        private void UpdateDesiredSpeed(string fileContent)
+        {
+            int desiredSpeed = GetConfigValueFromRegex(fileContent, @"DesiredSpeed = (\d+)");
+            trackBar3.Value = desiredSpeed;
+            labelDesiredSpeed.Text = $"DesiredSpeed = {desiredSpeed}";
+        }
+
+        private void UpdateMaxLifetime(string fileContent)
+        {
+            int maxLifetime = GetConfigValueFromRegex(fileContent, @"MaxLifeTime = (\d+)");
+            trackBar4.Value = maxLifetime;
+            labelMaxLifeTime.Text = $"MaxLifeTime = {maxLifetime}";
+        }
+
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the BaseDamage value.
@@ -129,6 +157,18 @@ namespace csharpSCConfigBuilder
         {
             // Update the label displaying the MaxTrajectory value.
             labelMaxTrajectory.Text = $"MaxTrajectory = {trackBar2.Value}";
+        }
+
+        private void trackBar3_ValueChanged(object sender, EventArgs e)
+        {
+            // Update the label displaying the DesiredSpeed value.
+            labelDesiredSpeed.Text = $"DesiredSpeed = {trackBar3.Value}";
+        }
+
+        private void trackBar4_ValueChanged(object sender, EventArgs e)
+        {
+            // Update the label displaying the MaxLifetime value.
+            labelMaxLifeTime.Text = $"MaxLifeTime = {trackBar4.Value}";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -162,9 +202,11 @@ namespace csharpSCConfigBuilder
             // Read the contents of the selected file.
             string fileContent = File.ReadAllText(selectedFilePath);
 
-            // Update the BaseDamage and MaxTrajectory values in the file.
+            // Update the BaseDamage, MaxTrajectory, DesiredSpeed, and MaxLifetime values in the file.
             string newFileContent = Regex.Replace(fileContent, @"BaseDamage = \d+", $"BaseDamage = {trackBar1.Value}");
             newFileContent = Regex.Replace(newFileContent, @"MaxTrajectory = \d+", $"MaxTrajectory = {trackBar2.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"DesiredSpeed = \d+", $"DesiredSpeed = {trackBar3.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"MaxLifeTime = \d+", $"MaxLifeTime = {trackBar4.Value}");
 
             // Save the modified contents back to the file.
             File.WriteAllText(selectedFilePath, newFileContent);
@@ -172,5 +214,6 @@ namespace csharpSCConfigBuilder
             // Update the TextBox with the new file content.
             textBox1.Text = newFileContent;
         }
+
     }
 }
