@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace csharpSCConfigBuilder
 {
@@ -15,10 +16,9 @@ namespace csharpSCConfigBuilder
         {
             InitializeComponent();
 
-
-            // Load the last selected folder from application settings.
-            lastSelectedAmmoFolder = Properties.Settings.Default.LastSelectedAmmoFolder;
-            lastSelectedWeaponFolder = Properties.Settings.Default.LastSelectedWeaponFolder;
+            // Load the last selected folder from application settings for both ammo and weapon.
+            lastSelectedAmmoFolder = Properties.Settings.Default.LastSelectedFolder;
+            lastSelectedWeaponFolder = Properties.Settings.Default.LastSelectedFolder;
 
             // Check and create the "coresysconfigs" folder if it doesn't exist.
             string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
@@ -27,14 +27,14 @@ namespace csharpSCConfigBuilder
                 Directory.CreateDirectory(folderPath);
             }
 
-            // Initialize the ComboBox with the list of .cs files from the "coresysconfigs" folder.
+            // Initialize the ComboBoxes with the list of .cs files from the "coresysconfigs" folder.
             InitializeAmmoComboBox();
-
-
+            InitializeWeaponComboBox();
 
             // Initialize the color controls
             UpdateColorControls();
         }
+
 
 
 
@@ -181,17 +181,21 @@ namespace csharpSCConfigBuilder
             // Show the dialog and check if the user clicked OK.
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                // Get the selected folder path and store it for the next time.
-                lastSelectedAmmoFolder = folderBrowserDialog.SelectedPath;
+                // Get the selected folder path and store it for the next time (for both ammo and weapon).
+                string selectedFolderPath = folderBrowserDialog.SelectedPath;
+                lastSelectedAmmoFolder = selectedFolderPath;
+                lastSelectedWeaponFolder = selectedFolderPath;
 
                 // Save the last selected folder path to application settings.
-                Properties.Settings.Default.LastSelectedAmmoFolder = lastSelectedAmmoFolder;
+                Properties.Settings.Default.LastSelectedFolder = selectedFolderPath;
                 Properties.Settings.Default.Save();
 
-                // Update the ComboBox based on the selected directory.
+                // Update the ComboBoxes based on the selected directory.
                 InitializeAmmoComboBox();
+                InitializeWeaponComboBox();
             }
         }
+
 
         private void UpdateColorControls()
         {
@@ -569,7 +573,6 @@ namespace csharpSCConfigBuilder
 
 
     }
-
 
 
 }
