@@ -1,6 +1,6 @@
 ﻿namespace csharpSCConfigBuilder
 {
-    partial class HelpForm
+    partial class HelpFormAmmo
     {
         /// <summary>
         /// Required designer variable.

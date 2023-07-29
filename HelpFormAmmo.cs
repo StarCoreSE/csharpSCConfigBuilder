@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace csharpSCConfigBuilder
 {
-    public partial class HelpForm : Form
+    public partial class HelpFormAmmo : Form
     {
-        public HelpForm()
+        public HelpFormAmmo()
         {
             InitializeComponent();
         }

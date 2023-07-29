@@ -14,6 +14,7 @@ namespace csharpSCConfigBuilder
         {
             InitializeComponent();
 
+
             buttonHelp.Click += buttonHelp_Click;
 
             // Load the last selected folder from application settings.
@@ -47,7 +48,7 @@ namespace csharpSCConfigBuilder
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             // Create and show the HelpForm as a dialog
-            using (var helpForm = new HelpForm())
+            using (var helpForm = new HelpFormAmmo())
             {
                 helpForm.ShowDialog();
             }
