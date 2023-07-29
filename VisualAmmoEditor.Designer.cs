@@ -28,315 +28,352 @@
         /// </summary>
         private void InitializeComponent()
         {
-            comboBox1 = new ComboBox();
-            labelDirectory = new Label();
-            button1 = new Button();
-            labelCurrentMode = new Label();
-            trackBar1 = new TrackBar();
-            textBox1 = new TextBox();
-            labelBaseDamage = new Label();
-            button2 = new Button();
-            labelMaxTrajectory = new Label();
-            trackBar2 = new TrackBar();
-            labelDesiredSpeed = new Label();
-            trackBar3 = new TrackBar();
+            tabControl1 = new TabControl();
+            tabAmmo = new TabPage();
+            panelColor = new Panel();
+            labelBlue = new Label();
+            labelGreen = new Label();
+            labelRed = new Label();
+            trackBarBlue = new TrackBar();
+            trackBarGreen = new TrackBar();
+            trackBarRed = new TrackBar();
+            buttonHelp = new Button();
             labelMaxLifeTime = new Label();
             trackBar4 = new TrackBar();
-            buttonHelp = new Button();
-            trackBarRed = new TrackBar();
-            trackBarGreen = new TrackBar();
-            trackBarBlue = new TrackBar();
-            labelRed = new Label();
-            labelGreen = new Label();
-            labelBlue = new Label();
-            panelColor = new Panel();
-            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarRed).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarGreen).BeginInit();
+            labelDesiredSpeed = new Label();
+            trackBar3 = new TrackBar();
+            labelMaxTrajectory = new Label();
+            trackBar2 = new TrackBar();
+            button2 = new Button();
+            labelBaseDamage = new Label();
+            textBox1 = new TextBox();
+            trackBar1 = new TrackBar();
+            labelCurrentMode = new Label();
+            button1 = new Button();
+            labelDirectory = new Label();
+            comboBox1 = new ComboBox();
+            tabWeapon = new TabPage();
+            tabControl1.SuspendLayout();
+            tabAmmo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBlue).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarGreen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRed).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
-            // comboBox1
+            // tabControl1
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(12, 50);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(776, 23);
-            comboBox1.TabIndex = 1;
-            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
+            tabControl1.Controls.Add(tabAmmo);
+            tabControl1.Controls.Add(tabWeapon);
+            tabControl1.Location = new Point(12, 12);
+            tabControl1.Name = "tabControl1";
+            tabControl1.SelectedIndex = 0;
+            tabControl1.Size = new Size(833, 709);
+            tabControl1.TabIndex = 25;
             // 
-            // labelDirectory
+            // tabAmmo
             // 
-            labelDirectory.AutoSize = true;
-            labelDirectory.Location = new Point(12, 614);
-            labelDirectory.Name = "labelDirectory";
-            labelDirectory.Size = new Size(54, 21);
-            labelDirectory.TabIndex = 2;
-            labelDirectory.Text = "Directory";
-            labelDirectory.UseCompatibleTextRendering = true;
+            tabAmmo.Controls.Add(panelColor);
+            tabAmmo.Controls.Add(labelBlue);
+            tabAmmo.Controls.Add(labelGreen);
+            tabAmmo.Controls.Add(labelRed);
+            tabAmmo.Controls.Add(trackBarBlue);
+            tabAmmo.Controls.Add(trackBarGreen);
+            tabAmmo.Controls.Add(trackBarRed);
+            tabAmmo.Controls.Add(buttonHelp);
+            tabAmmo.Controls.Add(labelMaxLifeTime);
+            tabAmmo.Controls.Add(trackBar4);
+            tabAmmo.Controls.Add(labelDesiredSpeed);
+            tabAmmo.Controls.Add(trackBar3);
+            tabAmmo.Controls.Add(labelMaxTrajectory);
+            tabAmmo.Controls.Add(trackBar2);
+            tabAmmo.Controls.Add(button2);
+            tabAmmo.Controls.Add(labelBaseDamage);
+            tabAmmo.Controls.Add(textBox1);
+            tabAmmo.Controls.Add(trackBar1);
+            tabAmmo.Controls.Add(labelCurrentMode);
+            tabAmmo.Controls.Add(button1);
+            tabAmmo.Controls.Add(labelDirectory);
+            tabAmmo.Controls.Add(comboBox1);
+            tabAmmo.Location = new Point(4, 24);
+            tabAmmo.Name = "tabAmmo";
+            tabAmmo.Padding = new Padding(3);
+            tabAmmo.Size = new Size(825, 681);
+            tabAmmo.TabIndex = 0;
+            tabAmmo.Text = "Ammo";
+            tabAmmo.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // panelColor
             // 
-            button1.Location = new Point(353, 9);
-            button1.Name = "button1";
-            button1.Size = new Size(118, 23);
-            button1.TabIndex = 3;
-            button1.Text = "Select Directory";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            panelColor.BackColor = SystemColors.Control;
+            panelColor.Location = new Point(590, 119);
+            panelColor.Name = "panelColor";
+            panelColor.Size = new Size(104, 82);
+            panelColor.TabIndex = 46;
             // 
-            // labelCurrentMode
+            // labelBlue
             // 
-            labelCurrentMode.AutoSize = true;
-            labelCurrentMode.Location = new Point(12, 635);
-            labelCurrentMode.Name = "labelCurrentMode";
-            labelCurrentMode.Size = new Size(81, 15);
-            labelCurrentMode.TabIndex = 4;
-            labelCurrentMode.Text = "Current Mode";
+            labelBlue.AutoSize = true;
+            labelBlue.Location = new Point(722, 224);
+            labelBlue.Name = "labelBlue";
+            labelBlue.Size = new Size(30, 15);
+            labelBlue.TabIndex = 45;
+            labelBlue.Text = "Blue";
+            labelBlue.TextAlign = ContentAlignment.TopCenter;
             // 
-            // trackBar1
+            // labelGreen
             // 
-            trackBar1.Location = new Point(42, 117);
-            trackBar1.Maximum = 10000;
-            trackBar1.Minimum = 1;
-            trackBar1.Name = "trackBar1";
-            trackBar1.RightToLeft = RightToLeft.No;
-            trackBar1.Size = new Size(163, 45);
-            trackBar1.TabIndex = 5;
-            trackBar1.Value = 1;
-            trackBar1.ValueChanged += trackBar1_ValueChanged;
+            labelGreen.AutoSize = true;
+            labelGreen.Location = new Point(621, 224);
+            labelGreen.Name = "labelGreen";
+            labelGreen.Size = new Size(38, 15);
+            labelGreen.TabIndex = 44;
+            labelGreen.Text = "Green";
+            labelGreen.TextAlign = ContentAlignment.TopCenter;
             // 
-            // textBox1
+            // labelRed
             // 
-            textBox1.BackColor = SystemColors.ButtonHighlight;
-            textBox1.Location = new Point(12, 295);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.ScrollBars = ScrollBars.Both;
-            textBox1.Size = new Size(776, 316);
-            textBox1.TabIndex = 6;
+            labelRed.AutoSize = true;
+            labelRed.Location = new Point(527, 224);
+            labelRed.Name = "labelRed";
+            labelRed.Size = new Size(27, 15);
+            labelRed.TabIndex = 43;
+            labelRed.Text = "Red";
+            labelRed.TextAlign = ContentAlignment.TopCenter;
             // 
-            // labelBaseDamage
+            // trackBarBlue
             // 
-            labelBaseDamage.AutoSize = true;
-            labelBaseDamage.Location = new Point(77, 99);
-            labelBaseDamage.Name = "labelBaseDamage";
-            labelBaseDamage.Size = new Size(75, 15);
-            labelBaseDamage.TabIndex = 7;
-            labelBaseDamage.Text = "BaseDamage";
-            labelBaseDamage.TextAlign = ContentAlignment.TopCenter;
+            trackBarBlue.Location = new Point(687, 241);
+            trackBarBlue.Maximum = 255;
+            trackBarBlue.Name = "trackBarBlue";
+            trackBarBlue.Size = new Size(104, 45);
+            trackBarBlue.TabIndex = 42;
             // 
-            // button2
+            // trackBarGreen
             // 
-            button2.Location = new Point(353, 252);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 8;
-            button2.Text = "Save";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            trackBarGreen.Location = new Point(590, 241);
+            trackBarGreen.Maximum = 255;
+            trackBarGreen.Name = "trackBarGreen";
+            trackBarGreen.Size = new Size(104, 45);
+            trackBarGreen.TabIndex = 41;
             // 
-            // labelMaxTrajectory
+            // trackBarRed
             // 
-            labelMaxTrajectory.AutoSize = true;
-            labelMaxTrajectory.Location = new Point(245, 99);
-            labelMaxTrajectory.Name = "labelMaxTrajectory";
-            labelMaxTrajectory.Size = new Size(81, 15);
-            labelMaxTrajectory.TabIndex = 10;
-            labelMaxTrajectory.Text = "MaxTrajectory";
-            labelMaxTrajectory.TextAlign = ContentAlignment.TopCenter;
+            trackBarRed.Location = new Point(493, 241);
+            trackBarRed.Maximum = 255;
+            trackBarRed.Name = "trackBarRed";
+            trackBarRed.Size = new Size(104, 45);
+            trackBarRed.TabIndex = 40;
             // 
-            // trackBar2
+            // buttonHelp
             // 
-            trackBar2.Location = new Point(210, 117);
-            trackBar2.Maximum = 10000;
-            trackBar2.Minimum = 1;
-            trackBar2.Name = "trackBar2";
-            trackBar2.RightToLeft = RightToLeft.No;
-            trackBar2.Size = new Size(163, 45);
-            trackBar2.TabIndex = 9;
-            trackBar2.Value = 1;
-            // 
-            // labelDesiredSpeed
-            // 
-            labelDesiredSpeed.AutoSize = true;
-            labelDesiredSpeed.Location = new Point(77, 165);
-            labelDesiredSpeed.Name = "labelDesiredSpeed";
-            labelDesiredSpeed.Size = new Size(78, 15);
-            labelDesiredSpeed.TabIndex = 12;
-            labelDesiredSpeed.Text = "DesiredSpeed";
-            labelDesiredSpeed.TextAlign = ContentAlignment.TopCenter;
-            // 
-            // trackBar3
-            // 
-            trackBar3.Location = new Point(42, 183);
-            trackBar3.Maximum = 10000;
-            trackBar3.Minimum = 1;
-            trackBar3.Name = "trackBar3";
-            trackBar3.RightToLeft = RightToLeft.No;
-            trackBar3.Size = new Size(163, 45);
-            trackBar3.TabIndex = 11;
-            trackBar3.Value = 1;
+            buttonHelp.Location = new Point(15, 20);
+            buttonHelp.Name = "buttonHelp";
+            buttonHelp.Size = new Size(47, 23);
+            buttonHelp.TabIndex = 39;
+            buttonHelp.Text = "?";
+            buttonHelp.UseVisualStyleBackColor = true;
             // 
             // labelMaxLifeTime
             // 
             labelMaxLifeTime.AutoSize = true;
-            labelMaxLifeTime.Location = new Point(245, 165);
+            labelMaxLifeTime.Location = new Point(218, 223);
             labelMaxLifeTime.Name = "labelMaxLifeTime";
             labelMaxLifeTime.Size = new Size(75, 15);
-            labelMaxLifeTime.TabIndex = 14;
+            labelMaxLifeTime.TabIndex = 38;
             labelMaxLifeTime.Text = "MaxLifeTime";
             labelMaxLifeTime.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBar4
             // 
-            trackBar4.Location = new Point(211, 183);
+            trackBar4.Location = new Point(184, 241);
             trackBar4.Maximum = 3600;
             trackBar4.Minimum = 1;
             trackBar4.Name = "trackBar4";
             trackBar4.RightToLeft = RightToLeft.No;
             trackBar4.Size = new Size(163, 45);
-            trackBar4.TabIndex = 13;
+            trackBar4.TabIndex = 37;
             trackBar4.Value = 1;
             // 
-            // buttonHelp
+            // labelDesiredSpeed
             // 
-            buttonHelp.Location = new Point(12, 9);
-            buttonHelp.Name = "buttonHelp";
-            buttonHelp.Size = new Size(47, 23);
-            buttonHelp.TabIndex = 15;
-            buttonHelp.Text = "?";
-            buttonHelp.UseVisualStyleBackColor = true;
+            labelDesiredSpeed.AutoSize = true;
+            labelDesiredSpeed.Location = new Point(50, 223);
+            labelDesiredSpeed.Name = "labelDesiredSpeed";
+            labelDesiredSpeed.Size = new Size(78, 15);
+            labelDesiredSpeed.TabIndex = 36;
+            labelDesiredSpeed.Text = "DesiredSpeed";
+            labelDesiredSpeed.TextAlign = ContentAlignment.TopCenter;
             // 
-            // trackBarRed
+            // trackBar3
             // 
-            trackBarRed.Location = new Point(490, 230);
-            trackBarRed.Maximum = 255;
-            trackBarRed.Name = "trackBarRed";
-            trackBarRed.Size = new Size(104, 45);
-            trackBarRed.TabIndex = 16;
+            trackBar3.Location = new Point(15, 241);
+            trackBar3.Maximum = 10000;
+            trackBar3.Minimum = 1;
+            trackBar3.Name = "trackBar3";
+            trackBar3.RightToLeft = RightToLeft.No;
+            trackBar3.Size = new Size(163, 45);
+            trackBar3.TabIndex = 35;
+            trackBar3.Value = 1;
             // 
-            // trackBarGreen
+            // labelMaxTrajectory
             // 
-            trackBarGreen.Location = new Point(587, 230);
-            trackBarGreen.Maximum = 255;
-            trackBarGreen.Name = "trackBarGreen";
-            trackBarGreen.Size = new Size(104, 45);
-            trackBarGreen.TabIndex = 17;
+            labelMaxTrajectory.AutoSize = true;
+            labelMaxTrajectory.Location = new Point(218, 157);
+            labelMaxTrajectory.Name = "labelMaxTrajectory";
+            labelMaxTrajectory.Size = new Size(81, 15);
+            labelMaxTrajectory.TabIndex = 34;
+            labelMaxTrajectory.Text = "MaxTrajectory";
+            labelMaxTrajectory.TextAlign = ContentAlignment.TopCenter;
             // 
-            // trackBarBlue
+            // trackBar2
             // 
-            trackBarBlue.Location = new Point(684, 230);
-            trackBarBlue.Maximum = 255;
-            trackBarBlue.Name = "trackBarBlue";
-            trackBarBlue.Size = new Size(104, 45);
-            trackBarBlue.TabIndex = 18;
+            trackBar2.Location = new Point(183, 175);
+            trackBar2.Maximum = 10000;
+            trackBar2.Minimum = 1;
+            trackBar2.Name = "trackBar2";
+            trackBar2.RightToLeft = RightToLeft.No;
+            trackBar2.Size = new Size(163, 45);
+            trackBar2.TabIndex = 33;
+            trackBar2.Value = 1;
             // 
-            // labelRed
+            // button2
             // 
-            labelRed.AutoSize = true;
-            labelRed.Location = new Point(524, 213);
-            labelRed.Name = "labelRed";
-            labelRed.Size = new Size(27, 15);
-            labelRed.TabIndex = 21;
-            labelRed.Text = "Red";
-            labelRed.TextAlign = ContentAlignment.TopCenter;
+            button2.Location = new Point(399, 263);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 32;
+            button2.Text = "Save";
+            button2.UseVisualStyleBackColor = true;
             // 
-            // labelGreen
+            // labelBaseDamage
             // 
-            labelGreen.AutoSize = true;
-            labelGreen.Location = new Point(618, 213);
-            labelGreen.Name = "labelGreen";
-            labelGreen.Size = new Size(38, 15);
-            labelGreen.TabIndex = 22;
-            labelGreen.Text = "Green";
-            labelGreen.TextAlign = ContentAlignment.TopCenter;
+            labelBaseDamage.AutoSize = true;
+            labelBaseDamage.Location = new Point(50, 157);
+            labelBaseDamage.Name = "labelBaseDamage";
+            labelBaseDamage.Size = new Size(75, 15);
+            labelBaseDamage.TabIndex = 31;
+            labelBaseDamage.Text = "BaseDamage";
+            labelBaseDamage.TextAlign = ContentAlignment.TopCenter;
             // 
-            // labelBlue
+            // textBox1
             // 
-            labelBlue.AutoSize = true;
-            labelBlue.Location = new Point(719, 213);
-            labelBlue.Name = "labelBlue";
-            labelBlue.Size = new Size(30, 15);
-            labelBlue.TabIndex = 23;
-            labelBlue.Text = "Blue";
-            labelBlue.TextAlign = ContentAlignment.TopCenter;
+            textBox1.BackColor = SystemColors.ButtonHighlight;
+            textBox1.Location = new Point(14, 311);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
+            textBox1.ScrollBars = ScrollBars.Both;
+            textBox1.Size = new Size(776, 316);
+            textBox1.TabIndex = 30;
             // 
-            // panelColor
+            // trackBar1
             // 
-            panelColor.BackColor = SystemColors.Control;
-            panelColor.Location = new Point(587, 108);
-            panelColor.Name = "panelColor";
-            panelColor.Size = new Size(104, 82);
-            panelColor.TabIndex = 24;
+            trackBar1.Location = new Point(15, 175);
+            trackBar1.Maximum = 10000;
+            trackBar1.Minimum = 1;
+            trackBar1.Name = "trackBar1";
+            trackBar1.RightToLeft = RightToLeft.No;
+            trackBar1.Size = new Size(163, 45);
+            trackBar1.TabIndex = 29;
+            trackBar1.Value = 1;
+            // 
+            // labelCurrentMode
+            // 
+            labelCurrentMode.AutoSize = true;
+            labelCurrentMode.Location = new Point(14, 651);
+            labelCurrentMode.Name = "labelCurrentMode";
+            labelCurrentMode.Size = new Size(81, 15);
+            labelCurrentMode.TabIndex = 28;
+            labelCurrentMode.Text = "Current Mode";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(356, 20);
+            button1.Name = "button1";
+            button1.Size = new Size(118, 23);
+            button1.TabIndex = 27;
+            button1.Text = "Select Directory";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // labelDirectory
+            // 
+            labelDirectory.AutoSize = true;
+            labelDirectory.Location = new Point(14, 630);
+            labelDirectory.Name = "labelDirectory";
+            labelDirectory.Size = new Size(54, 21);
+            labelDirectory.TabIndex = 26;
+            labelDirectory.Text = "Directory";
+            labelDirectory.UseCompatibleTextRendering = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(15, 61);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(776, 23);
+            comboBox1.TabIndex = 25;
+            // 
+            // tabWeapon
+            // 
+            tabWeapon.Location = new Point(4, 24);
+            tabWeapon.Name = "tabWeapon";
+            tabWeapon.Padding = new Padding(3);
+            tabWeapon.Size = new Size(1069, 720);
+            tabWeapon.TabIndex = 1;
+            tabWeapon.Text = "Weapon";
+            tabWeapon.UseVisualStyleBackColor = true;
             // 
             // VisualAmmoEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 659);
-            Controls.Add(panelColor);
-            Controls.Add(labelBlue);
-            Controls.Add(labelGreen);
-            Controls.Add(labelRed);
-            Controls.Add(trackBarBlue);
-            Controls.Add(trackBarGreen);
-            Controls.Add(trackBarRed);
-            Controls.Add(buttonHelp);
-            Controls.Add(labelMaxLifeTime);
-            Controls.Add(trackBar4);
-            Controls.Add(labelDesiredSpeed);
-            Controls.Add(trackBar3);
-            Controls.Add(labelMaxTrajectory);
-            Controls.Add(trackBar2);
-            Controls.Add(button2);
-            Controls.Add(labelBaseDamage);
-            Controls.Add(textBox1);
-            Controls.Add(trackBar1);
-            Controls.Add(labelCurrentMode);
-            Controls.Add(button1);
-            Controls.Add(labelDirectory);
-            Controls.Add(comboBox1);
+            ClientSize = new Size(857, 735);
+            Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VisualAmmoEditor";
             Text = "SCConfigBuilder";
-            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar3).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBar4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarRed).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarGreen).EndInit();
+            tabControl1.ResumeLayout(false);
+            tabAmmo.ResumeLayout(false);
+            tabAmmo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBlue).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarGreen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRed).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private ComboBox comboBox1;
-        private Label labelDirectory;
-        private Button button1;
-        private Label labelCurrentMode;
-        private TrackBar trackBar1;
-        private TextBox textBox1;
-        private Label labelBaseDamage;
-        private Button button2;
-        private Label labelMaxTrajectory;
-        private TrackBar trackBar2;
-        private Label labelDesiredSpeed;
-        private TrackBar trackBar3;
+        private TabControl tabControl1;
+        private TabPage tabAmmo;
+        private TabPage tabWeapon;
+        private Panel panelColor;
+        private Label labelBlue;
+        private Label labelGreen;
+        private Label labelRed;
+        private TrackBar trackBarBlue;
+        private TrackBar trackBarGreen;
+        private TrackBar trackBarRed;
+        private Button buttonHelp;
         private Label labelMaxLifeTime;
         private TrackBar trackBar4;
-        private Button buttonHelp;
-        private TrackBar trackBarRed;
-        private TrackBar trackBarGreen;
-        private TrackBar trackBarBlue;
-        private Label labelRed;
-        private Label labelGreen;
-        private Label labelBlue;
-        private Panel panelColor;
+        private Label labelDesiredSpeed;
+        private TrackBar trackBar3;
+        private Label labelMaxTrajectory;
+        private TrackBar trackBar2;
+        private Button button2;
+        private Label labelBaseDamage;
+        private TextBox textBox1;
+        private TrackBar trackBar1;
+        private Label labelCurrentMode;
+        private Button button1;
+        private Label labelDirectory;
+        private ComboBox comboBox1;
     }
 }
