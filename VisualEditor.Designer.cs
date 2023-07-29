@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabAmmo = new TabPage();
             panelColor = new Panel();
@@ -52,6 +53,8 @@
             labelDisplayAmmoDir = new Label();
             comboBoxAmmoSelect = new ComboBox();
             tabWeapon = new TabPage();
+            pictureBoxElevateRate = new PictureBox();
+            pictureBoxRotateRate = new PictureBox();
             numericUpDownElevateRate = new NumericUpDown();
             numericUpDownRotateRate = new NumericUpDown();
             labelElevateRate = new Label();
@@ -66,6 +69,8 @@
             buttonHelpWeapon = new Button();
             buttonWeaponSelectDir = new Button();
             comboBoxWeaponSelect = new ComboBox();
+            timerRotation = new System.Windows.Forms.Timer(components);
+            timerElevation = new System.Windows.Forms.Timer(components);
             tabControl1.SuspendLayout();
             tabAmmo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBlue).BeginInit();
@@ -76,6 +81,8 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMaxTrajectory).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).BeginInit();
             tabWeapon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxElevateRate).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxRotateRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownElevateRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownRotateRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarReloadTime).BeginInit();
@@ -345,6 +352,8 @@
             // 
             // tabWeapon
             // 
+            tabWeapon.Controls.Add(pictureBoxElevateRate);
+            tabWeapon.Controls.Add(pictureBoxRotateRate);
             tabWeapon.Controls.Add(numericUpDownElevateRate);
             tabWeapon.Controls.Add(numericUpDownRotateRate);
             tabWeapon.Controls.Add(labelElevateRate);
@@ -367,11 +376,29 @@
             tabWeapon.Text = "Weapon";
             tabWeapon.UseVisualStyleBackColor = true;
             // 
+            // pictureBoxElevateRate
+            // 
+            pictureBoxElevateRate.Location = new Point(658, 167);
+            pictureBoxElevateRate.Name = "pictureBoxElevateRate";
+            pictureBoxElevateRate.Size = new Size(124, 82);
+            pictureBoxElevateRate.TabIndex = 57;
+            pictureBoxElevateRate.TabStop = false;
+            pictureBoxElevateRate.Paint += pictureBoxElevateRate_Paint;
+            // 
+            // pictureBoxRotateRate
+            // 
+            pictureBoxRotateRate.Location = new Point(502, 167);
+            pictureBoxRotateRate.Name = "pictureBoxRotateRate";
+            pictureBoxRotateRate.Size = new Size(124, 82);
+            pictureBoxRotateRate.TabIndex = 56;
+            pictureBoxRotateRate.TabStop = false;
+            pictureBoxRotateRate.Paint += pictureBoxRotateRate_Paint;
+            // 
             // numericUpDownElevateRate
             // 
             numericUpDownElevateRate.DecimalPlaces = 3;
             numericUpDownElevateRate.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numericUpDownElevateRate.Location = new Point(200, 259);
+            numericUpDownElevateRate.Location = new Point(662, 127);
             numericUpDownElevateRate.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownElevateRate.Name = "numericUpDownElevateRate";
             numericUpDownElevateRate.Size = new Size(120, 23);
@@ -382,7 +409,7 @@
             // 
             numericUpDownRotateRate.DecimalPlaces = 3;
             numericUpDownRotateRate.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numericUpDownRotateRate.Location = new Point(200, 226);
+            numericUpDownRotateRate.Location = new Point(502, 127);
             numericUpDownRotateRate.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
             numericUpDownRotateRate.Name = "numericUpDownRotateRate";
             numericUpDownRotateRate.Size = new Size(120, 23);
@@ -392,7 +419,7 @@
             // labelElevateRate
             // 
             labelElevateRate.AutoSize = true;
-            labelElevateRate.Location = new Point(56, 261);
+            labelElevateRate.Location = new Point(662, 105);
             labelElevateRate.Name = "labelElevateRate";
             labelElevateRate.Size = new Size(67, 15);
             labelElevateRate.TabIndex = 53;
@@ -402,7 +429,7 @@
             // labelRotateRate
             // 
             labelRotateRate.AutoSize = true;
-            labelRotateRate.Location = new Point(56, 228);
+            labelRotateRate.Location = new Point(530, 105);
             labelRotateRate.Name = "labelRotateRate";
             labelRotateRate.Size = new Size(64, 15);
             labelRotateRate.TabIndex = 51;
@@ -412,17 +439,17 @@
             // labelReloadTime
             // 
             labelReloadTime.AutoSize = true;
-            labelReloadTime.Location = new Point(225, 157);
+            labelReloadTime.Location = new Point(225, 87);
             labelReloadTime.Name = "labelReloadTime";
-            labelReloadTime.Size = new Size(67, 15);
+            labelReloadTime.Size = new Size(69, 15);
             labelReloadTime.TabIndex = 49;
-            labelReloadTime.Text = "Reloadtime";
+            labelReloadTime.Text = "ReloadTime";
             labelReloadTime.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBarReloadTime
             // 
             trackBarReloadTime.BackColor = SystemColors.ControlLightLight;
-            trackBarReloadTime.Location = new Point(183, 175);
+            trackBarReloadTime.Location = new Point(183, 105);
             trackBarReloadTime.Maximum = 3600;
             trackBarReloadTime.Minimum = 1;
             trackBarReloadTime.Name = "trackBarReloadTime";
@@ -445,7 +472,7 @@
             // labelRateOfFire
             // 
             labelRateOfFire.AutoSize = true;
-            labelRateOfFire.Location = new Point(56, 157);
+            labelRateOfFire.Location = new Point(56, 87);
             labelRateOfFire.Name = "labelRateOfFire";
             labelRateOfFire.Size = new Size(62, 15);
             labelRateOfFire.TabIndex = 46;
@@ -455,7 +482,7 @@
             // trackBarRateOfFire
             // 
             trackBarRateOfFire.BackColor = SystemColors.ControlLightLight;
-            trackBarRateOfFire.Location = new Point(14, 175);
+            trackBarRateOfFire.Location = new Point(14, 105);
             trackBarRateOfFire.Maximum = 3600;
             trackBarRateOfFire.Minimum = 1;
             trackBarRateOfFire.Name = "trackBarRateOfFire";
@@ -515,6 +542,16 @@
             comboBoxWeaponSelect.TabIndex = 40;
             comboBoxWeaponSelect.SelectedIndexChanged += ComboBoxWeaponSelect_SelectedIndexChanged;
             // 
+            // timerRotation
+            // 
+            timerRotation.Enabled = true;
+            timerRotation.Tick += timerRotation_Tick;
+            // 
+            // timerElevation
+            // 
+            timerElevation.Enabled = true;
+            timerElevation.Tick += timerElevation_Tick;
+            // 
             // VisualEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -536,6 +573,8 @@
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).EndInit();
             tabWeapon.ResumeLayout(false);
             tabWeapon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxElevateRate).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxRotateRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownElevateRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericUpDownRotateRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarReloadTime).EndInit();
@@ -582,5 +621,9 @@
         private NumericUpDown numericUpDownRotateRate;
         private Label labelElevateRate;
         private Label labelRotateRate;
+        private PictureBox pictureBoxRotateRate;
+        private System.Windows.Forms.Timer timerRotation;
+        private PictureBox pictureBoxElevateRate;
+        private System.Windows.Forms.Timer timerElevation;
     }
 }

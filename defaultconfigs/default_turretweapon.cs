@@ -37,8 +37,8 @@ WeaponDefinition LargeBlockArtilleryTurret => new WeaponDefinition
                 },
                 HardWare = new HardwareDef
                 {
-                    RotateRate = 0.400f,
-                    ElevateRate = 0.150f,
+                    RotateRate = 1.000f,
+                    ElevateRate = 1.000f,
                     MinAzimuth = -180,
                     MaxAzimuth = 180,
                     MinElevation = -15,
