@@ -66,10 +66,9 @@ namespace csharpSCConfigBuilder
                     // Set the file content as the text of the read-only TextBox.
                     textBox1.Text = fileContent;
 
-                    // Parse and set the initial BaseDamage value.
-                    int baseDamage = GetBaseDamageFromConfig(fileContent);
-                    trackBar1.Value = baseDamage;
-                    labelBaseDamage.Text = $"BaseDamage = {baseDamage}";
+                    // Parse and set the initial BaseDamage and MaxTrajectory values.
+                    UpdateBaseDamage(fileContent);
+                    UpdateMaxTrajectory(fileContent);
                 }
                 else
                 {
@@ -86,25 +85,45 @@ namespace csharpSCConfigBuilder
             }
         }
 
-        private int GetBaseDamageFromConfig(string fileContent)
+        private int GetConfigValueFromRegex(string fileContent, string pattern)
         {
-            // Use regular expression to find the BaseDamage value in the file.
-            Match match = Regex.Match(fileContent, @"BaseDamage = (\d+)");
+            // Use regular expression to find the specified value in the file.
+            Match match = Regex.Match(fileContent, pattern);
             if (match.Success && match.Groups.Count >= 2)
             {
-                int baseDamage;
-                if (int.TryParse(match.Groups[1].Value, out baseDamage))
+                int value;
+                if (int.TryParse(match.Groups[1].Value, out value))
                 {
-                    return baseDamage;
+                    return value;
                 }
             }
-            return 0; // Default value if BaseDamage is not found or parsing fails.
+            return 0; // Default value if the specified value is not found or parsing fails.
+        }
+
+        private void UpdateBaseDamage(string fileContent)
+        {
+            int baseDamage = GetConfigValueFromRegex(fileContent, @"BaseDamage = (\d+)");
+            trackBar1.Value = baseDamage;
+            labelBaseDamage.Text = $"BaseDamage = {baseDamage}";
+        }
+
+        private void UpdateMaxTrajectory(string fileContent)
+        {
+            int maxTrajectory = GetConfigValueFromRegex(fileContent, @"MaxTrajectory = (\d+)");
+            trackBar2.Value = maxTrajectory;
+            labelMaxTrajectory.Text = $"MaxTrajectory = {maxTrajectory}";
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the BaseDamage value.
             labelBaseDamage.Text = $"BaseDamage = {trackBar1.Value}";
+        }
+
+        private void trackBar2_ValueChanged(object sender, EventArgs e)
+        {
+            // Update the label displaying the MaxTrajectory value.
+            labelMaxTrajectory.Text = $"MaxTrajectory = {trackBar2.Value}";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -131,42 +150,22 @@ namespace csharpSCConfigBuilder
             // Check if a file is selected
             if (string.IsNullOrEmpty(selectedFilePath) || !File.Exists(selectedFilePath))
             {
-                MessageBox.Show("Please select an ammo config file before saving the BaseDamage value.");
+                MessageBox.Show("Please select an ammo config file before saving the values.");
                 return;
             }
-
-            // Get the current BaseDamage value from the slider
-            int newBaseDamage = trackBar1.Value;
 
             // Read the contents of the selected file.
             string fileContent = File.ReadAllText(selectedFilePath);
 
-            // Use regular expression to find the existing BaseDamage value in the file.
-            Match match = Regex.Match(fileContent, @"BaseDamage = (\d+)");
-            if (match.Success && match.Groups.Count >= 2)
-            {
-                int currentBaseDamage;
-                if (int.TryParse(match.Groups[1].Value, out currentBaseDamage))
-                {
-                    // Replace the existing BaseDamage value with the new one from the slider.
-                    string newFileContent = Regex.Replace(fileContent, @"BaseDamage = \d+", $"BaseDamage = {newBaseDamage}");
+            // Update the BaseDamage and MaxTrajectory values in the file.
+            string newFileContent = Regex.Replace(fileContent, @"BaseDamage = \d+", $"BaseDamage = {trackBar1.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"MaxTrajectory = \d+", $"MaxTrajectory = {trackBar2.Value}");
 
-                    // Save the modified contents back to the file.
-                    File.WriteAllText(selectedFilePath, newFileContent);
+            // Save the modified contents back to the file.
+            File.WriteAllText(selectedFilePath, newFileContent);
 
-                    // Update the TextBox with the new file content.
-                    textBox1.Text = newFileContent;
-                    labelBaseDamage.Text = $"BaseDamage = {newBaseDamage}";
-                }
-                else
-                {
-                    MessageBox.Show("Failed to parse the existing BaseDamage value in the file.");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Failed to find the existing BaseDamage value in the file.");
-            }
+            // Update the TextBox with the new file content.
+            textBox1.Text = newFileContent;
         }
     }
 }

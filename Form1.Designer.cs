@@ -36,7 +36,10 @@
             textBox1 = new TextBox();
             labelBaseDamage = new Label();
             button2 = new Button();
+            labelMaxTrajectory = new Label();
+            trackBar2 = new TrackBar();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
@@ -117,11 +120,33 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
+            // labelMaxTrajectory
+            // 
+            labelMaxTrajectory.AutoSize = true;
+            labelMaxTrajectory.Location = new Point(245, 99);
+            labelMaxTrajectory.Name = "labelMaxTrajectory";
+            labelMaxTrajectory.Size = new Size(81, 15);
+            labelMaxTrajectory.TabIndex = 10;
+            labelMaxTrajectory.Text = "MaxTrajectory";
+            // 
+            // trackBar2
+            // 
+            trackBar2.Location = new Point(210, 117);
+            trackBar2.Maximum = 10000;
+            trackBar2.Minimum = 1;
+            trackBar2.Name = "trackBar2";
+            trackBar2.RightToLeft = RightToLeft.No;
+            trackBar2.Size = new Size(163, 45);
+            trackBar2.TabIndex = 9;
+            trackBar2.Value = 1;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 659);
+            Controls.Add(labelMaxTrajectory);
+            Controls.Add(trackBar2);
             Controls.Add(button2);
             Controls.Add(labelBaseDamage);
             Controls.Add(textBox1);
@@ -133,6 +158,7 @@
             Name = "Form1";
             Text = "SCConfigBuilder";
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -146,5 +172,7 @@
         private TextBox textBox1;
         private Label labelBaseDamage;
         private Button button2;
+        private Label labelMaxTrajectory;
+        private TrackBar trackBar2;
     }
 }
