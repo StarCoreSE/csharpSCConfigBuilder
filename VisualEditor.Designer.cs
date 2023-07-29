@@ -52,6 +52,8 @@
             labelDisplayAmmoDir = new Label();
             comboBoxAmmoSelect = new ComboBox();
             tabWeapon = new TabPage();
+            labelReloadTime = new Label();
+            trackBarReloadTime = new TrackBar();
             buttonWeaponSave = new Button();
             labelRateOfFire = new Label();
             trackBarRateOfFire = new TrackBar();
@@ -70,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMaxTrajectory).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).BeginInit();
             tabWeapon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarReloadTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).BeginInit();
             SuspendLayout();
             // 
@@ -336,6 +339,8 @@
             // 
             // tabWeapon
             // 
+            tabWeapon.Controls.Add(labelReloadTime);
+            tabWeapon.Controls.Add(trackBarReloadTime);
             tabWeapon.Controls.Add(buttonWeaponSave);
             tabWeapon.Controls.Add(labelRateOfFire);
             tabWeapon.Controls.Add(trackBarRateOfFire);
@@ -352,6 +357,29 @@
             tabWeapon.Text = "Weapon";
             tabWeapon.UseVisualStyleBackColor = true;
             // 
+            // labelReloadTime
+            // 
+            labelReloadTime.AutoSize = true;
+            labelReloadTime.Location = new Point(225, 157);
+            labelReloadTime.Name = "labelReloadTime";
+            labelReloadTime.Size = new Size(67, 15);
+            labelReloadTime.TabIndex = 49;
+            labelReloadTime.Text = "Reloadtime";
+            labelReloadTime.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // trackBarReloadTime
+            // 
+            trackBarReloadTime.BackColor = SystemColors.ControlLightLight;
+            trackBarReloadTime.Location = new Point(183, 175);
+            trackBarReloadTime.Maximum = 3600;
+            trackBarReloadTime.Minimum = 1;
+            trackBarReloadTime.Name = "trackBarReloadTime";
+            trackBarReloadTime.RightToLeft = RightToLeft.No;
+            trackBarReloadTime.Size = new Size(163, 45);
+            trackBarReloadTime.TabIndex = 48;
+            trackBarReloadTime.Value = 1;
+            trackBarReloadTime.ValueChanged += trackBarReloadTime_ValueChanged;
+            // 
             // buttonWeaponSave
             // 
             buttonWeaponSave.Location = new Point(374, 282);
@@ -360,6 +388,7 @@
             buttonWeaponSave.TabIndex = 47;
             buttonWeaponSave.Text = "Save";
             buttonWeaponSave.UseVisualStyleBackColor = true;
+            buttonWeaponSave.Click += buttonWeaponSave_Click;
             // 
             // labelRateOfFire
             // 
@@ -455,6 +484,7 @@
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).EndInit();
             tabWeapon.ResumeLayout(false);
             tabWeapon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackBarReloadTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).EndInit();
             ResumeLayout(false);
         }
@@ -492,5 +522,7 @@
         private Label labelRateOfFire;
         private TrackBar trackBarRateOfFire;
         private Button buttonWeaponSave;
+        private Label labelReloadTime;
+        private TrackBar trackBarReloadTime;
     }
 }

@@ -7,7 +7,8 @@ namespace csharpSCConfigBuilder
 {
     public partial class VisualEditor : Form
     {
-        private string lastSelectedFolder;
+        private string lastSelectedAmmoFolder;
+        private string lastSelectedWeaponFolder;
         private string selectedFilePath;
 
         public VisualEditor()
@@ -16,7 +17,8 @@ namespace csharpSCConfigBuilder
 
 
             // Load the last selected folder from application settings.
-            lastSelectedFolder = Properties.Settings.Default.LastSelectedFolder;
+            lastSelectedAmmoFolder = Properties.Settings.Default.LastSelectedAmmoFolder;
+            lastSelectedWeaponFolder = Properties.Settings.Default.LastSelectedWeaponFolder;
 
             // Check and create the "coresysconfigs" folder if it doesn't exist.
             string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
@@ -38,9 +40,9 @@ namespace csharpSCConfigBuilder
 
         private void InitializeAmmoComboBox()
         {
-            if (Directory.Exists(lastSelectedFolder))
+            if (Directory.Exists(lastSelectedAmmoFolder))
             {
-                string[] csFiles = Directory.GetFiles(lastSelectedFolder, "*.cs");
+                string[] csFiles = Directory.GetFiles(lastSelectedAmmoFolder, "*.cs");
                 comboBoxAmmoSelect.Items.Clear();
                 comboBoxAmmoSelect.Items.AddRange(csFiles);
 
@@ -174,16 +176,16 @@ namespace csharpSCConfigBuilder
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
             // Set the initial folder to the last selected folder path from the settings.
-            folderBrowserDialog.SelectedPath = lastSelectedFolder;
+            folderBrowserDialog.SelectedPath = lastSelectedAmmoFolder;
 
             // Show the dialog and check if the user clicked OK.
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 // Get the selected folder path and store it for the next time.
-                lastSelectedFolder = folderBrowserDialog.SelectedPath;
+                lastSelectedAmmoFolder = folderBrowserDialog.SelectedPath;
 
                 // Save the last selected folder path to application settings.
-                Properties.Settings.Default.LastSelectedFolder = lastSelectedFolder;
+                Properties.Settings.Default.LastSelectedAmmoFolder = lastSelectedAmmoFolder;
                 Properties.Settings.Default.Save();
 
                 // Update the ComboBox based on the selected directory.
@@ -355,13 +357,6 @@ namespace csharpSCConfigBuilder
                     // Parse and set the initial values for weapon-related parameters.
                     UpdateWeaponParameters(fileContent);
 
-                    // Additional logic for updating controls specific to the weapon tab can be added here.
-
-                    // For example, if you have sliders or numeric up-down controls for weapon stats, you can update them here.
-
-                    // For color controls, if they are specific to the weapon tab, you can handle them separately here.
-
-                    // For updating the RGB values, you can call the corresponding UpdateColorControls method here, or update them in a separate method for color controls related to the weapon tab.
                 }
                 else
                 {
@@ -384,28 +379,29 @@ namespace csharpSCConfigBuilder
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
 
             // Set the initial folder to the last selected folder path from the settings.
-            folderBrowserDialog.SelectedPath = lastSelectedFolder;
+            folderBrowserDialog.SelectedPath = lastSelectedWeaponFolder;
 
             // Show the dialog and check if the user clicked OK.
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 // Get the selected folder path and store it for the next time.
-                lastSelectedFolder = folderBrowserDialog.SelectedPath;
+                lastSelectedWeaponFolder = folderBrowserDialog.SelectedPath;
 
                 // Save the last selected folder path to application settings.
-                Properties.Settings.Default.LastSelectedFolder = lastSelectedFolder;
-                Properties.Settings.Default.Save();
+                Properties.Settings.Default.LastSelectedWeaponFolder = lastSelectedWeaponFolder;
+                Properties.Settings.Default.Save(); // Save the settings
 
                 // Update the ComboBox based on the selected directory.
                 InitializeWeaponComboBox();
             }
         }
 
+
         private void InitializeWeaponComboBox()
         {
-            if (Directory.Exists(lastSelectedFolder))
+            if (Directory.Exists(lastSelectedWeaponFolder))
             {
-                string[] csFiles = Directory.GetFiles(lastSelectedFolder, "*.cs");
+                string[] csFiles = Directory.GetFiles(lastSelectedWeaponFolder, "*.cs");
                 comboBoxWeaponSelect.Items.Clear();
                 comboBoxWeaponSelect.Items.AddRange(csFiles);
 
@@ -422,15 +418,27 @@ namespace csharpSCConfigBuilder
             }
         }
 
+
         private void UpdateWeaponParameters(string fileContent)
         {
             // Example: Get RateOfFire from the fileContent using regular expressions
-            int RateOfFire = GetConfigValueFromRegex(fileContent, @"RateOfFire = (\d+)");
+            int rateOfFire = GetConfigValueFromRegex(fileContent, @"RateOfFire = (\d+)");
+            int reloadTime = GetConfigValueFromRegex(fileContent, @"ReloadTime = (\d+)");
 
             // Update the slider or numeric up-down control for RateOfFire
-            trackBarRateOfFire.Value = RateOfFire;
-            labelRateOfFire.Text = $"Rate of Fire: {RateOfFire}";
+            trackBarRateOfFire.Value = rateOfFire;
+            labelRateOfFire.Text = $"Rate of Fire: {rateOfFire}";
+
+            // Update the slider or numeric up-down control for ReloadTime
+            trackBarReloadTime.Value = reloadTime;
+            labelReloadTime.Text = $"Reload Time: {reloadTime} ms";
+
+            // Set the file content as the text of the read-only TextBox.
+            // This will ensure that the TextBox displays the latest values when the user selects a weapon file.
+            textBoxWeapon.Text = fileContent;
         }
+
+
 
         private void buttonWeaponSave_Click(object sender, EventArgs e)
         {
@@ -446,6 +454,7 @@ namespace csharpSCConfigBuilder
 
             // Update the weapon-specific parameters in the file.
             string newFileContent = Regex.Replace(fileContent, @"RateOfFire = \d+", $"RateOfFire = {trackBarRateOfFire.Value}");
+            newFileContent = Regex.Replace(newFileContent, @"ReloadTime = \d+", $"ReloadTime = {trackBarReloadTime.Value}");
 
             // If you have other sliders or numeric up-down controls for weapon stats, you can update them similarly here.
 
@@ -456,11 +465,19 @@ namespace csharpSCConfigBuilder
             textBoxWeapon.Text = newFileContent;
         }
 
+
         private void trackBarRateOfFire_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the Rate of Fire value in real-time.
             labelRateOfFire.Text = $"Rate of Fire = {trackBarRateOfFire.Value}";
         }
+
+        private void trackBarReloadTime_ValueChanged(object sender, EventArgs e)
+        {
+            // Update the label displaying the Reload Time value in real-time.
+            labelReloadTime.Text = $"Reload Time = {trackBarReloadTime.Value} ms";
+        }
+
 
 
     }

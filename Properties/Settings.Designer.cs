@@ -26,12 +26,24 @@ namespace csharpSCConfigBuilder.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string LastSelectedFolder {
+        public string LastSelectedAmmoFolder {
             get {
-                return ((string)(this["LastSelectedFolder"]));
+                return ((string)(this["LastSelectedAmmoFolder"]));
             }
             set {
-                this["LastSelectedFolder"] = value;
+                this["LastSelectedAmmoFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LastSelectedWeaponFolder {
+            get {
+                return ((string)(this["LastSelectedWeaponFolder"]));
+            }
+            set {
+                this["LastSelectedWeaponFolder"] = value;
             }
         }
     }
