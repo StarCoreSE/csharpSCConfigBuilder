@@ -23,7 +23,12 @@ namespace csharpSCConfigBuilder
 
             // Initialize the ComboBox with the list of .cs files from the "coresysconfigs" folder.
             InitializeComboBox();
+
+            // Wire up the ValueChanged event of trackBar1 and trackBar2 to their respective event handlers.
+            trackBar1.ValueChanged += trackBar1_ValueChanged;
+            trackBar2.ValueChanged += trackBar2_ValueChanged;
         }
+
 
         private void InitializeComboBox()
         {
