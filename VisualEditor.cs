@@ -5,17 +5,15 @@ using System.Windows.Forms;
 
 namespace csharpSCConfigBuilder
 {
-    public partial class VisualAmmoEditor : Form
+    public partial class VisualEditor : Form
     {
         private string lastSelectedFolder;
         private string selectedFilePath;
 
-        public VisualAmmoEditor()
+        public VisualEditor()
         {
             InitializeComponent();
 
-
-            buttonHelp.Click += buttonHelp_Click;
 
             // Load the last selected folder from application settings.
             lastSelectedFolder = Properties.Settings.Default.LastSelectedFolder;
@@ -45,40 +43,33 @@ namespace csharpSCConfigBuilder
             UpdateColorControls();
         }
 
-        private void buttonHelp_Click(object sender, EventArgs e)
-        {
-            // Create and show the HelpForm as a dialog
-            using (var helpForm = new HelpFormAmmo())
-            {
-                helpForm.ShowDialog();
-            }
-        }
+
 
         private void InitializeComboBox()
         {
             if (Directory.Exists(lastSelectedFolder))
             {
                 string[] csFiles = Directory.GetFiles(lastSelectedFolder, "*.cs");
-                comboBox1.Items.Clear();
-                comboBox1.Items.AddRange(csFiles);
+                comboBoxAmmoSelect.Items.Clear();
+                comboBoxAmmoSelect.Items.AddRange(csFiles);
 
                 // If a file was previously selected, set it as the selected item.
-                if (comboBox1.Items.Count > 0 && !string.IsNullOrEmpty(selectedFilePath))
+                if (comboBoxAmmoSelect.Items.Count > 0 && !string.IsNullOrEmpty(selectedFilePath))
                 {
-                    comboBox1.SelectedItem = selectedFilePath;
+                    comboBoxAmmoSelect.SelectedItem = selectedFilePath;
                 }
             }
             else
             {
                 // Directory not found or empty, clear the ComboBox items.
-                comboBox1.Items.Clear();
+                comboBoxAmmoSelect.Items.Clear();
             }
         }
 
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxAmmoSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected file path.
-            selectedFilePath = comboBox1.SelectedItem?.ToString();
+            selectedFilePath = comboBoxAmmoSelect.SelectedItem?.ToString();
 
             // Check if the selected file path is not null and the file exists.
             if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
@@ -186,7 +177,7 @@ namespace csharpSCConfigBuilder
             labelMaxLifeTime.Text = $"MaxLifeTime = {trackBar4.Value}";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonAmmoSelectDir_Click(object sender, EventArgs e)
         {
             // Create a new instance of FolderBrowserDialog.
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
@@ -301,7 +292,7 @@ namespace csharpSCConfigBuilder
             File.WriteAllText(selectedFilePath, newFileContent);
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonAmmoSave_Click(object sender, EventArgs e)
         {
             // Check if a file is selected
             if (string.IsNullOrEmpty(selectedFilePath) || !File.Exists(selectedFilePath))
@@ -330,6 +321,14 @@ namespace csharpSCConfigBuilder
             textBox1.Text = newFileContent;
         }
 
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            // Create and show the HelpForm as a dialog
+            using (var helpForm = new HelpFormAmmo())
+            {
+                helpForm.ShowDialog();
+            }
+        }
 
     }
 

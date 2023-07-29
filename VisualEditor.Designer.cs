@@ -1,6 +1,6 @@
 ﻿namespace csharpSCConfigBuilder
 {
-    partial class VisualAmmoEditor
+    partial class VisualEditor
     {
         /// <summary>
         ///  Required designer variable.
@@ -44,14 +44,13 @@
             trackBar3 = new TrackBar();
             labelMaxTrajectory = new Label();
             trackBar2 = new TrackBar();
-            button2 = new Button();
+            buttonAmmoSave = new Button();
             labelBaseDamage = new Label();
             textBox1 = new TextBox();
             trackBar1 = new TrackBar();
-            labelCurrentMode = new Label();
             button1 = new Button();
             labelDirectory = new Label();
-            comboBox1 = new ComboBox();
+            comboBoxAmmoSelect = new ComboBox();
             tabWeapon = new TabPage();
             tabControl1.SuspendLayout();
             tabAmmo.SuspendLayout();
@@ -90,14 +89,13 @@
             tabAmmo.Controls.Add(trackBar3);
             tabAmmo.Controls.Add(labelMaxTrajectory);
             tabAmmo.Controls.Add(trackBar2);
-            tabAmmo.Controls.Add(button2);
+            tabAmmo.Controls.Add(buttonAmmoSave);
             tabAmmo.Controls.Add(labelBaseDamage);
             tabAmmo.Controls.Add(textBox1);
             tabAmmo.Controls.Add(trackBar1);
-            tabAmmo.Controls.Add(labelCurrentMode);
             tabAmmo.Controls.Add(button1);
             tabAmmo.Controls.Add(labelDirectory);
-            tabAmmo.Controls.Add(comboBox1);
+            tabAmmo.Controls.Add(comboBoxAmmoSelect);
             tabAmmo.Location = new Point(4, 24);
             tabAmmo.Name = "tabAmmo";
             tabAmmo.Padding = new Padding(3);
@@ -151,6 +149,7 @@
             trackBarBlue.Name = "trackBarBlue";
             trackBarBlue.Size = new Size(104, 45);
             trackBarBlue.TabIndex = 42;
+            trackBarBlue.ValueChanged += trackBarBlue_ValueChanged;
             // 
             // trackBarGreen
             // 
@@ -159,6 +158,7 @@
             trackBarGreen.Name = "trackBarGreen";
             trackBarGreen.Size = new Size(104, 45);
             trackBarGreen.TabIndex = 41;
+            trackBarGreen.ValueChanged += trackBarGreen_ValueChanged;
             // 
             // trackBarRed
             // 
@@ -167,15 +167,17 @@
             trackBarRed.Name = "trackBarRed";
             trackBarRed.Size = new Size(104, 45);
             trackBarRed.TabIndex = 40;
+            trackBarRed.ValueChanged += trackBarRed_ValueChanged;
             // 
             // buttonHelp
             // 
-            buttonHelp.Location = new Point(15, 20);
+            buttonHelp.Location = new Point(14, 20);
             buttonHelp.Name = "buttonHelp";
             buttonHelp.Size = new Size(47, 23);
             buttonHelp.TabIndex = 39;
             buttonHelp.Text = "?";
             buttonHelp.UseVisualStyleBackColor = true;
+            buttonHelp.Click += buttonHelp_Click;
             // 
             // labelMaxLifeTime
             // 
@@ -197,6 +199,7 @@
             trackBar4.Size = new Size(163, 45);
             trackBar4.TabIndex = 37;
             trackBar4.Value = 1;
+            trackBar4.ValueChanged += trackBar4_ValueChanged;
             // 
             // labelDesiredSpeed
             // 
@@ -218,6 +221,7 @@
             trackBar3.Size = new Size(163, 45);
             trackBar3.TabIndex = 35;
             trackBar3.Value = 1;
+            trackBar3.ValueChanged += trackBar3_ValueChanged;
             // 
             // labelMaxTrajectory
             // 
@@ -239,15 +243,17 @@
             trackBar2.Size = new Size(163, 45);
             trackBar2.TabIndex = 33;
             trackBar2.Value = 1;
+            trackBar2.ValueChanged += trackBar2_ValueChanged;
             // 
-            // button2
+            // buttonAmmoSave
             // 
-            button2.Location = new Point(399, 263);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 32;
-            button2.Text = "Save";
-            button2.UseVisualStyleBackColor = true;
+            buttonAmmoSave.Location = new Point(374, 282);
+            buttonAmmoSave.Name = "buttonAmmoSave";
+            buttonAmmoSave.Size = new Size(75, 23);
+            buttonAmmoSave.TabIndex = 32;
+            buttonAmmoSave.Text = "Save";
+            buttonAmmoSave.UseVisualStyleBackColor = true;
+            buttonAmmoSave.Click += buttonAmmoSave_Click;
             // 
             // labelBaseDamage
             // 
@@ -280,15 +286,7 @@
             trackBar1.Size = new Size(163, 45);
             trackBar1.TabIndex = 29;
             trackBar1.Value = 1;
-            // 
-            // labelCurrentMode
-            // 
-            labelCurrentMode.AutoSize = true;
-            labelCurrentMode.Location = new Point(14, 651);
-            labelCurrentMode.Name = "labelCurrentMode";
-            labelCurrentMode.Size = new Size(81, 15);
-            labelCurrentMode.TabIndex = 28;
-            labelCurrentMode.Text = "Current Mode";
+            trackBar1.ValueChanged += trackBar1_ValueChanged;
             // 
             // button1
             // 
@@ -298,6 +296,7 @@
             button1.TabIndex = 27;
             button1.Text = "Select Directory";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += buttonAmmoSelectDir_Click;
             // 
             // labelDirectory
             // 
@@ -309,32 +308,33 @@
             labelDirectory.Text = "Directory";
             labelDirectory.UseCompatibleTextRendering = true;
             // 
-            // comboBox1
+            // comboBoxAmmoSelect
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(15, 61);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(776, 23);
-            comboBox1.TabIndex = 25;
+            comboBoxAmmoSelect.FormattingEnabled = true;
+            comboBoxAmmoSelect.Location = new Point(15, 61);
+            comboBoxAmmoSelect.Name = "comboBoxAmmoSelect";
+            comboBoxAmmoSelect.Size = new Size(776, 23);
+            comboBoxAmmoSelect.TabIndex = 25;
+            comboBoxAmmoSelect.SelectedIndexChanged += ComboBoxAmmoSelect_SelectedIndexChanged;
             // 
             // tabWeapon
             // 
             tabWeapon.Location = new Point(4, 24);
             tabWeapon.Name = "tabWeapon";
             tabWeapon.Padding = new Padding(3);
-            tabWeapon.Size = new Size(1069, 720);
+            tabWeapon.Size = new Size(825, 681);
             tabWeapon.TabIndex = 1;
             tabWeapon.Text = "Weapon";
             tabWeapon.UseVisualStyleBackColor = true;
             // 
-            // VisualAmmoEditor
+            // VisualEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(857, 735);
             Controls.Add(tabControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "VisualAmmoEditor";
+            Name = "VisualEditor";
             Text = "SCConfigBuilder";
             tabControl1.ResumeLayout(false);
             tabAmmo.ResumeLayout(false);
@@ -350,9 +350,6 @@
         }
 
         #endregion
-        private TabControl tabControl1;
-        private TabPage tabAmmo;
-        private TabPage tabWeapon;
         private Panel panelColor;
         private Label labelBlue;
         private Label labelGreen;
@@ -367,13 +364,15 @@
         private TrackBar trackBar3;
         private Label labelMaxTrajectory;
         private TrackBar trackBar2;
-        private Button button2;
+        private Button buttonAmmoSave;
         private Label labelBaseDamage;
         private TextBox textBox1;
         private TrackBar trackBar1;
-        private Label labelCurrentMode;
         private Button button1;
         private Label labelDirectory;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxAmmoSelect;
+        private TabControl tabControl1;
+        private TabPage tabAmmo;
+        private TabPage tabWeapon;
     }
 }
