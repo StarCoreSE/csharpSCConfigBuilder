@@ -34,6 +34,8 @@
             label2 = new Label();
             trackBar1 = new TrackBar();
             textBox1 = new TextBox();
+            labelBaseDamage = new Label();
+            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
@@ -77,11 +79,14 @@
             // 
             // trackBar1
             // 
-            trackBar1.Location = new Point(75, 129);
+            trackBar1.Location = new Point(42, 117);
+            trackBar1.Maximum = 10000;
+            trackBar1.Minimum = 1;
             trackBar1.Name = "trackBar1";
             trackBar1.RightToLeft = RightToLeft.No;
-            trackBar1.Size = new Size(104, 45);
+            trackBar1.Size = new Size(163, 45);
             trackBar1.TabIndex = 5;
+            trackBar1.Value = 1;
             trackBar1.ValueChanged += trackBar1_ValueChanged;
             // 
             // textBox1
@@ -93,11 +98,32 @@
             textBox1.Size = new Size(776, 316);
             textBox1.TabIndex = 6;
             // 
+            // labelBaseDamage
+            // 
+            labelBaseDamage.AutoSize = true;
+            labelBaseDamage.Location = new Point(77, 99);
+            labelBaseDamage.Name = "labelBaseDamage";
+            labelBaseDamage.Size = new Size(75, 15);
+            labelBaseDamage.TabIndex = 7;
+            labelBaseDamage.Text = "BaseDamage";
+            // 
+            // button2
+            // 
+            button2.Location = new Point(378, 252);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 8;
+            button2.Text = "Save";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 659);
+            Controls.Add(button2);
+            Controls.Add(labelBaseDamage);
             Controls.Add(textBox1);
             Controls.Add(trackBar1);
             Controls.Add(label2);
@@ -118,5 +144,7 @@
         private Label label2;
         private TrackBar trackBar1;
         private TextBox textBox1;
+        private Label labelBaseDamage;
+        private Button button2;
     }
 }

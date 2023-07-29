@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace csharpSCConfigBuilder
@@ -7,6 +8,7 @@ namespace csharpSCConfigBuilder
     public partial class Form1 : Form
     {
         private string lastSelectedFolder;
+        private string selectedFilePath;
 
         public Form1()
         {
@@ -47,7 +49,7 @@ namespace csharpSCConfigBuilder
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected file path.
-            string selectedFilePath = comboBox1.SelectedItem?.ToString();
+            selectedFilePath = comboBox1.SelectedItem?.ToString();
 
             // Check if the selected file path is not null and the file exists.
             if (!string.IsNullOrEmpty(selectedFilePath) && File.Exists(selectedFilePath))
@@ -63,6 +65,11 @@ namespace csharpSCConfigBuilder
 
                     // Set the file content as the text of the read-only TextBox.
                     textBox1.Text = fileContent;
+
+                    // Parse and set the initial BaseDamage value.
+                    int baseDamage = GetBaseDamageFromConfig(fileContent);
+                    trackBar1.Value = baseDamage;
+                    labelBaseDamage.Text = $"BaseDamage = {baseDamage}";
                 }
                 else
                 {
@@ -77,6 +84,27 @@ namespace csharpSCConfigBuilder
                 label1.Text = "";
                 textBox1.Text = "";
             }
+        }
+
+        private int GetBaseDamageFromConfig(string fileContent)
+        {
+            // Use regular expression to find the BaseDamage value in the file.
+            Match match = Regex.Match(fileContent, @"BaseDamage = (\d+)");
+            if (match.Success && match.Groups.Count >= 2)
+            {
+                int baseDamage;
+                if (int.TryParse(match.Groups[1].Value, out baseDamage))
+                {
+                    return baseDamage;
+                }
+            }
+            return 0; // Default value if BaseDamage is not found or parsing fails.
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            // Update the label displaying the BaseDamage value.
+            labelBaseDamage.Text = $"BaseDamage = {trackBar1.Value}";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -98,9 +126,47 @@ namespace csharpSCConfigBuilder
             }
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e)
         {
+            // Check if a file is selected
+            if (string.IsNullOrEmpty(selectedFilePath) || !File.Exists(selectedFilePath))
+            {
+                MessageBox.Show("Please select an ammo config file before saving the BaseDamage value.");
+                return;
+            }
 
+            // Get the current BaseDamage value from the slider
+            int newBaseDamage = trackBar1.Value;
+
+            // Read the contents of the selected file.
+            string fileContent = File.ReadAllText(selectedFilePath);
+
+            // Use regular expression to find the existing BaseDamage value in the file.
+            Match match = Regex.Match(fileContent, @"BaseDamage = (\d+)");
+            if (match.Success && match.Groups.Count >= 2)
+            {
+                int currentBaseDamage;
+                if (int.TryParse(match.Groups[1].Value, out currentBaseDamage))
+                {
+                    // Replace the existing BaseDamage value with the new one from the slider.
+                    string newFileContent = Regex.Replace(fileContent, @"BaseDamage = \d+", $"BaseDamage = {newBaseDamage}");
+
+                    // Save the modified contents back to the file.
+                    File.WriteAllText(selectedFilePath, newFileContent);
+
+                    // Update the TextBox with the new file content.
+                    textBox1.Text = newFileContent;
+                    labelBaseDamage.Text = $"BaseDamage = {newBaseDamage}";
+                }
+                else
+                {
+                    MessageBox.Show("Failed to parse the existing BaseDamage value in the file.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Failed to find the existing BaseDamage value in the file.");
+            }
         }
     }
 }
