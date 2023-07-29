@@ -60,6 +60,9 @@ namespace csharpSCConfigBuilder
                 {
                     // Display the file path in a label when it passes validation.
                     label1.Text = selectedFilePath;
+
+                    // Set the file content as the text of the read-only TextBox.
+                    textBox1.Text = fileContent;
                 }
                 else
                 {
@@ -70,8 +73,9 @@ namespace csharpSCConfigBuilder
             else
             {
                 // Handle the case when no file is selected or the selected file does not exist.
-                // For example, you can clear the label displaying the file path.
+                // For example, you can clear the label displaying the file path and the TextBox.
                 label1.Text = "";
+                textBox1.Text = "";
             }
         }
 
@@ -92,6 +96,11 @@ namespace csharpSCConfigBuilder
                 // Update the ComboBox based on the selected directory.
                 InitializeComboBox();
             }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

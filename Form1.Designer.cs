@@ -32,21 +32,24 @@
             label1 = new Label();
             button1 = new Button();
             label2 = new Label();
+            trackBar1 = new TrackBar();
+            textBox1 = new TextBox();
+            ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(31, 50);
+            comboBox1.Location = new Point(12, 50);
             comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(757, 23);
+            comboBox1.Size = new Size(776, 23);
             comboBox1.TabIndex = 1;
             comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(32, 401);
+            label1.Location = new Point(5, 614);
             label1.Name = "label1";
             label1.Size = new Size(54, 21);
             label1.TabIndex = 2;
@@ -66,23 +69,44 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(32, 422);
+            label2.Location = new Point(5, 635);
             label2.Name = "label2";
             label2.Size = new Size(81, 15);
             label2.TabIndex = 4;
             label2.Text = "Current Mode";
             // 
+            // trackBar1
+            // 
+            trackBar1.Location = new Point(75, 129);
+            trackBar1.Name = "trackBar1";
+            trackBar1.RightToLeft = RightToLeft.No;
+            trackBar1.Size = new Size(104, 45);
+            trackBar1.TabIndex = 5;
+            trackBar1.ValueChanged += trackBar1_ValueChanged;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(12, 295);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.ScrollBars = ScrollBars.Both;
+            textBox1.Size = new Size(776, 316);
+            textBox1.TabIndex = 6;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 659);
+            Controls.Add(textBox1);
+            Controls.Add(trackBar1);
             Controls.Add(label2);
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(comboBox1);
             Name = "Form1";
-            Text = "Form1";
+            Text = "SCConfigBuilder";
+            ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -92,5 +116,7 @@
         private Label label1;
         private Button button1;
         private Label label2;
+        private TrackBar trackBar1;
+        private TextBox textBox1;
     }
 }
