@@ -37,8 +37,8 @@ WeaponDefinition LargeBlockArtilleryTurret => new WeaponDefinition
                 },
                 HardWare = new HardwareDef
                 {
-                    RotateRate = 0.001f,
-                    ElevateRate = 0.001f,
+                    RotateRate = 0.400f,
+                    ElevateRate = 0.150f,
                     MinAzimuth = -180,
                     MaxAzimuth = 180,
                     MinElevation = -15,
@@ -48,10 +48,10 @@ WeaponDefinition LargeBlockArtilleryTurret => new WeaponDefinition
                 },
                 Loading = new LoadingDef
                 {
-                    RateOfFire = 80,
+                    RateOfFire = 716,
                     BarrelsPerShot = 1,
                     TrajectilesPerBarrel = 1,
-                    ReloadTime = 720,
+                    ReloadTime = 1801,
                     MagsToLoad = 1,
                 },
                 Audio = new HardPointAudioDef

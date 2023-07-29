@@ -52,6 +52,10 @@
             labelDisplayAmmoDir = new Label();
             comboBoxAmmoSelect = new ComboBox();
             tabWeapon = new TabPage();
+            numericUpDownElevateRate = new NumericUpDown();
+            numericUpDownRotateRate = new NumericUpDown();
+            labelElevateRate = new Label();
+            labelRotateRate = new Label();
             labelReloadTime = new Label();
             trackBarReloadTime = new TrackBar();
             buttonWeaponSave = new Button();
@@ -72,6 +76,8 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMaxTrajectory).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).BeginInit();
             tabWeapon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownElevateRate).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownRotateRate).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarReloadTime).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).BeginInit();
             SuspendLayout();
@@ -339,6 +345,10 @@
             // 
             // tabWeapon
             // 
+            tabWeapon.Controls.Add(numericUpDownElevateRate);
+            tabWeapon.Controls.Add(numericUpDownRotateRate);
+            tabWeapon.Controls.Add(labelElevateRate);
+            tabWeapon.Controls.Add(labelRotateRate);
             tabWeapon.Controls.Add(labelReloadTime);
             tabWeapon.Controls.Add(trackBarReloadTime);
             tabWeapon.Controls.Add(buttonWeaponSave);
@@ -356,6 +366,48 @@
             tabWeapon.TabIndex = 1;
             tabWeapon.Text = "Weapon";
             tabWeapon.UseVisualStyleBackColor = true;
+            // 
+            // numericUpDownElevateRate
+            // 
+            numericUpDownElevateRate.DecimalPlaces = 3;
+            numericUpDownElevateRate.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            numericUpDownElevateRate.Location = new Point(200, 259);
+            numericUpDownElevateRate.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownElevateRate.Name = "numericUpDownElevateRate";
+            numericUpDownElevateRate.Size = new Size(120, 23);
+            numericUpDownElevateRate.TabIndex = 55;
+            numericUpDownElevateRate.ValueChanged += numericUpDownElevateRate_ValueChanged;
+            // 
+            // numericUpDownRotateRate
+            // 
+            numericUpDownRotateRate.DecimalPlaces = 3;
+            numericUpDownRotateRate.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            numericUpDownRotateRate.Location = new Point(200, 226);
+            numericUpDownRotateRate.Maximum = new decimal(new int[] { 1, 0, 0, 0 });
+            numericUpDownRotateRate.Name = "numericUpDownRotateRate";
+            numericUpDownRotateRate.Size = new Size(120, 23);
+            numericUpDownRotateRate.TabIndex = 54;
+            numericUpDownRotateRate.ValueChanged += numericUpDownRotateRate_ValueChanged;
+            // 
+            // labelElevateRate
+            // 
+            labelElevateRate.AutoSize = true;
+            labelElevateRate.Location = new Point(56, 261);
+            labelElevateRate.Name = "labelElevateRate";
+            labelElevateRate.Size = new Size(67, 15);
+            labelElevateRate.TabIndex = 53;
+            labelElevateRate.Text = "ElevateRate";
+            labelElevateRate.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // labelRotateRate
+            // 
+            labelRotateRate.AutoSize = true;
+            labelRotateRate.Location = new Point(56, 228);
+            labelRotateRate.Name = "labelRotateRate";
+            labelRotateRate.Size = new Size(64, 15);
+            labelRotateRate.TabIndex = 51;
+            labelRotateRate.Text = "RotateRate";
+            labelRotateRate.TextAlign = ContentAlignment.TopCenter;
             // 
             // labelReloadTime
             // 
@@ -461,7 +513,7 @@
             comboBoxWeaponSelect.Name = "comboBoxWeaponSelect";
             comboBoxWeaponSelect.Size = new Size(776, 23);
             comboBoxWeaponSelect.TabIndex = 40;
-            comboBoxWeaponSelect.SelectedIndexChanged += comboBoxWeaponSelect_SelectedIndexChanged;
+            comboBoxWeaponSelect.SelectedIndexChanged += ComboBoxWeaponSelect_SelectedIndexChanged;
             // 
             // VisualEditor
             // 
@@ -484,6 +536,8 @@
             ((System.ComponentModel.ISupportInitialize)trackBarBaseDamage).EndInit();
             tabWeapon.ResumeLayout(false);
             tabWeapon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownElevateRate).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numericUpDownRotateRate).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarReloadTime).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).EndInit();
             ResumeLayout(false);
@@ -524,5 +578,9 @@
         private Button buttonWeaponSave;
         private Label labelReloadTime;
         private TrackBar trackBarReloadTime;
+        private NumericUpDown numericUpDownElevateRate;
+        private NumericUpDown numericUpDownRotateRate;
+        private Label labelElevateRate;
+        private Label labelRotateRate;
     }
 }

@@ -334,7 +334,8 @@ namespace csharpSCConfigBuilder
 
         }
 
-        private void comboBoxWeaponSelect_SelectedIndexChanged(object sender, EventArgs e)
+
+        private void ComboBoxWeaponSelect_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected file path.
             selectedFilePath = comboBoxWeaponSelect.SelectedItem?.ToString();
@@ -357,6 +358,11 @@ namespace csharpSCConfigBuilder
                     // Parse and set the initial values for weapon-related parameters.
                     UpdateWeaponParameters(fileContent);
 
+                    // Enable/Disable the RotateRate and ElevateRate controls based on their presence in the config.
+                    bool rotateRateExists = CheckIfConfigValueExists(fileContent, @"RotateRate = \d+(\.\d+)?");
+                    bool elevateRateExists = CheckIfConfigValueExists(fileContent, @"ElevateRate = \d+(\.\d+)?");
+                    numericUpDownRotateRate.Enabled = rotateRateExists;
+                    numericUpDownElevateRate.Enabled = elevateRateExists;
                 }
                 else
                 {
@@ -370,8 +376,20 @@ namespace csharpSCConfigBuilder
                 // For example, you can clear the label displaying the file path and the TextBox.
                 labelDisplayWeaponDir.Text = "";
                 textBoxWeapon.Text = "";
+
+                // Disable the RotateRate and ElevateRate controls when no file is selected.
+                numericUpDownRotateRate.Enabled = false;
+                numericUpDownElevateRate.Enabled = false;
             }
         }
+
+        private bool CheckIfConfigValueExists(string fileContent, string pattern)
+        {
+            // Use regular expression to find the specified value in the file.
+            Match match = Regex.Match(fileContent, pattern);
+            return match.Success;
+        }
+
 
         private void buttonWeaponSelectDir_Click(object sender, EventArgs e)
         {
@@ -421,24 +439,84 @@ namespace csharpSCConfigBuilder
 
         private void UpdateWeaponParameters(string fileContent)
         {
-            // Example: Get RateOfFire from the fileContent using regular expressions
+            // Get the weapon-specific parameters from the fileContent using regular expressions
             int rateOfFire = GetConfigValueFromRegex(fileContent, @"RateOfFire = (\d+)");
             int reloadTime = GetConfigValueFromRegex(fileContent, @"ReloadTime = (\d+)");
 
-            // Update the slider or numeric up-down control for RateOfFire
+            // Example: Get RotateRate and ElevateRate from the fileContent using regular expressions
+            float rotateRate = GetFloatConfigValueFromRegex(fileContent, @"RotateRate = (\d+(\.\d+)?)");
+            float elevateRate = GetFloatConfigValueFromRegex(fileContent, @"ElevateRate = (\d+(\.\d+)?)");
+
+            // Update the sliders and labels for RateOfFire and ReloadTime
             trackBarRateOfFire.Value = rateOfFire;
             labelRateOfFire.Text = $"Rate of Fire: {rateOfFire} rpm";
 
-            // Update the slider or numeric up-down control for ReloadTime
             trackBarReloadTime.Value = reloadTime;
             labelReloadTime.Text = $"Reload Time: {reloadTime} ms";
+
+            // Check if RotateRate exists in the file and enable/disable the NumericUpDown control accordingly
+            if (rotateRate >= 0)
+            {
+                numericUpDownRotateRate.Enabled = true;
+                numericUpDownRotateRate.Value = (decimal)rotateRate;
+                labelRotateRate.Text = $"Rotate Rate: {rotateRate:F3} rad/s";
+            }
+            else
+            {
+                numericUpDownRotateRate.Enabled = false;
+                labelRotateRate.Text = "Rotate Rate: N/A";
+            }
+
+            // Check if ElevateRate exists in the file and enable/disable the NumericUpDown control accordingly
+            if (elevateRate >= 0)
+            {
+                numericUpDownElevateRate.Enabled = true;
+                numericUpDownElevateRate.Value = (decimal)elevateRate;
+                labelElevateRate.Text = $"Elevate Rate: {elevateRate:F3} rad/s";
+            }
+            else
+            {
+                numericUpDownElevateRate.Enabled = false;
+                labelElevateRate.Text = "Elevate Rate: N/A";
+            }
 
             // Set the file content as the text of the read-only TextBox.
             // This will ensure that the TextBox displays the latest values when the user selects a weapon file.
             textBoxWeapon.Text = fileContent;
         }
 
+        private float GetFloatConfigValueFromRegex(string fileContent, string pattern)
+        {
+            // Use regular expression to find the specified float value in the file.
+            Match match = Regex.Match(fileContent, pattern);
+            if (match.Success && match.Groups.Count >= 2)
+            {
+                float value;
+                if (float.TryParse(match.Groups[1].Value, out value))
+                {
+                    return value;
+                }
+            }
+            return 0.0f; // Default value if the specified value is not found or parsing fails.
+        }
 
+        private void numericUpDownRotateRate_ValueChanged(object sender, EventArgs e)
+        {
+            // Get the float value from the NumericUpDown control for RotateRate
+            float rotateRate = (float)numericUpDownRotateRate.Value;
+
+            // Update the label displaying the RotateRate value in radians per second
+            labelRotateRate.Text = $"Rotate Rate: {rotateRate:F3} rad/s";
+        }
+
+        private void numericUpDownElevateRate_ValueChanged(object sender, EventArgs e)
+        {
+            // Get the float value from the NumericUpDown control for ElevateRate
+            float elevateRate = (float)numericUpDownElevateRate.Value;
+
+            // Update the label displaying the ElevateRate value in radians per second
+            labelElevateRate.Text = $"Elevate Rate: {elevateRate:F3} rad/s";
+        }
 
         private void buttonWeaponSave_Click(object sender, EventArgs e)
         {
@@ -456,7 +534,17 @@ namespace csharpSCConfigBuilder
             string newFileContent = Regex.Replace(fileContent, @"RateOfFire = \d+", $"RateOfFire = {trackBarRateOfFire.Value}");
             newFileContent = Regex.Replace(newFileContent, @"ReloadTime = \d+", $"ReloadTime = {trackBarReloadTime.Value}");
 
-            // If you have other sliders or numeric up-down controls for weapon stats, you can update them similarly here.
+            // Check if the RotateRate control is enabled (i.e., RotateRate exists in the file) before updating it
+            if (numericUpDownRotateRate.Enabled)
+            {
+                newFileContent = Regex.Replace(newFileContent, @"RotateRate = [0-9]*\.?[0-9]+", $"RotateRate = {numericUpDownRotateRate.Value:F3}");
+            }
+
+            // Check if the ElevateRate control is enabled (i.e., ElevateRate exists in the file) before updating it
+            if (numericUpDownElevateRate.Enabled)
+            {
+                newFileContent = Regex.Replace(newFileContent, @"ElevateRate = [0-9]*\.?[0-9]+", $"ElevateRate = {numericUpDownElevateRate.Value:F3}");
+            }
 
             // Save the modified contents back to the file.
             File.WriteAllText(selectedFilePath, newFileContent);
