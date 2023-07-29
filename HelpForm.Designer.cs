@@ -48,6 +48,8 @@
             Controls.Add(labelHelp);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "HelpForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Tag = "Form1";
             Text = "HelpForm";
             ResumeLayout(false);
             PerformLayout();

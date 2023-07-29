@@ -5,16 +5,19 @@ using System.Windows.Forms;
 
 namespace csharpSCConfigBuilder
 {
-    public partial class Form1 : Form
+    public partial class VisualAmmoEditor : Form
     {
         private string lastSelectedFolder;
         private string selectedFilePath;
 
-        public Form1()
+        public VisualAmmoEditor()
         {
             InitializeComponent();
 
             buttonHelp.Click += buttonHelp_Click;
+
+            // Load the last selected folder from application settings.
+            lastSelectedFolder = Properties.Settings.Default.LastSelectedFolder;
 
             // Check and create the "coresysconfigs" folder if it doesn't exist.
             string folderPath = Path.Combine(Application.StartupPath, "coresysconfigs");
@@ -31,6 +34,14 @@ namespace csharpSCConfigBuilder
             trackBar2.ValueChanged += trackBar2_ValueChanged;
             trackBar3.ValueChanged += trackBar3_ValueChanged;
             trackBar4.ValueChanged += trackBar4_ValueChanged;
+
+            // Set the event handlers for the track bars' ValueChanged events
+            trackBarRed.ValueChanged += trackBarRed_ValueChanged;
+            trackBarGreen.ValueChanged += trackBarGreen_ValueChanged;
+            trackBarBlue.ValueChanged += trackBarBlue_ValueChanged;
+
+            // Initialize the color controls
+            UpdateColorControls();
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
@@ -51,9 +62,9 @@ namespace csharpSCConfigBuilder
                 comboBox1.Items.AddRange(csFiles);
 
                 // If a file was previously selected, set it as the selected item.
-                if (comboBox1.Items.Count > 0 && !string.IsNullOrEmpty(lastSelectedFolder))
+                if (comboBox1.Items.Count > 0 && !string.IsNullOrEmpty(selectedFilePath))
                 {
-                    comboBox1.SelectedItem = lastSelectedFolder;
+                    comboBox1.SelectedItem = selectedFilePath;
                 }
             }
             else
@@ -88,6 +99,9 @@ namespace csharpSCConfigBuilder
                     UpdateMaxTrajectory(fileContent);
                     UpdateDesiredSpeed(fileContent);
                     UpdateMaxLifetime(fileContent);
+
+                    // Update the RGB values.
+                    UpdateColorControls();
                 }
                 else
                 {
@@ -185,9 +199,105 @@ namespace csharpSCConfigBuilder
                 // Get the selected folder path and store it for the next time.
                 lastSelectedFolder = folderBrowserDialog.SelectedPath;
 
+                // Save the last selected folder path to application settings.
+                Properties.Settings.Default.LastSelectedFolder = lastSelectedFolder;
+                Properties.Settings.Default.Save();
+
                 // Update the ComboBox based on the selected directory.
                 InitializeComboBox();
             }
+        }
+
+        private void UpdateColorControls()
+        {
+            // Check if selectedFilePath is null or empty.
+            if (string.IsNullOrEmpty(selectedFilePath))
+            {
+                return;
+            }
+
+            // Read the contents of the selected file.
+            string fileContent = File.ReadAllText(selectedFilePath);
+
+            // Use regular expression to find the existing Color line in the file.
+            Match matchColor = Regex.Match(fileContent, @"Color\s*=\s*Color\s*\(red:\s*(\d+),\s*green:\s*(\d+),\s*blue:\s*(\d+),\s*alpha:\s*[\d.]+f\s*\)");
+            if (matchColor.Success && matchColor.Groups.Count >= 4)
+            {
+                int red, green, blue;
+                if (int.TryParse(matchColor.Groups[1].Value, out red) &&
+                    int.TryParse(matchColor.Groups[2].Value, out green) &&
+                    int.TryParse(matchColor.Groups[3].Value, out blue))
+                {
+                    // Update the track bars and labels with the parsed RGB values
+                    trackBarRed.Value = red;
+                    trackBarGreen.Value = green;
+                    trackBarBlue.Value = blue;
+
+                    labelRed.Text = $"Red = {red}";
+                    labelGreen.Text = $"Green = {green}";
+                    labelBlue.Text = $"Blue = {blue}";
+                }
+            }
+        }
+
+        // Assuming you have already added a Panel control named "panelColor" to your form.
+
+        private void trackBarRed_ValueChanged(object sender, EventArgs e)
+        {
+            // Check if selectedFilePath is null or empty.
+            if (string.IsNullOrEmpty(selectedFilePath))
+            {
+                return;
+            }
+
+            labelRed.Text = $"Red = {trackBarRed.Value}";
+            UpdateColorInConfig();
+
+            // Update the color of the panelColor using the current RGB values.
+            panelColor.BackColor = Color.FromArgb(trackBarRed.Value, trackBarGreen.Value, trackBarBlue.Value);
+        }
+
+        private void trackBarGreen_ValueChanged(object sender, EventArgs e)
+        {
+            // Check if selectedFilePath is null or empty.
+            if (string.IsNullOrEmpty(selectedFilePath))
+            {
+                return;
+            }
+
+            labelGreen.Text = $"Green = {trackBarGreen.Value}";
+            UpdateColorInConfig();
+
+            // Update the color of the panelColor using the current RGB values.
+            panelColor.BackColor = Color.FromArgb(trackBarRed.Value, trackBarGreen.Value, trackBarBlue.Value);
+        }
+
+        private void trackBarBlue_ValueChanged(object sender, EventArgs e)
+        {
+            // Check if selectedFilePath is null or empty.
+            if (string.IsNullOrEmpty(selectedFilePath))
+            {
+                return;
+            }
+
+            labelBlue.Text = $"Blue = {trackBarBlue.Value}";
+            UpdateColorInConfig();
+
+            // Update the color of the panelColor using the current RGB values.
+            panelColor.BackColor = Color.FromArgb(trackBarRed.Value, trackBarGreen.Value, trackBarBlue.Value);
+        }
+
+        private void UpdateColorInConfig()
+        {
+            // Read the contents of the selected file.
+            string fileContent = File.ReadAllText(selectedFilePath);
+
+            // Replace the existing Color line with the updated RGB values from the track bars.
+            string newFileContent = Regex.Replace(fileContent, @"Color\s*=\s*Color\s*\(red:\s*\d+,\s*green:\s*\d+,\s*blue:\s*\d+,\s*alpha:\s*[\d.]+f\s*\)",
+                $"Color = Color(red: {trackBarRed.Value}, green: {trackBarGreen.Value}, blue: {trackBarBlue.Value}, alpha: 1f)");
+
+            // Save the modified contents back to the file.
+            File.WriteAllText(selectedFilePath, newFileContent);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -208,12 +318,20 @@ namespace csharpSCConfigBuilder
             newFileContent = Regex.Replace(newFileContent, @"DesiredSpeed = \d+", $"DesiredSpeed = {trackBar3.Value}");
             newFileContent = Regex.Replace(newFileContent, @"MaxLifeTime = \d+", $"MaxLifeTime = {trackBar4.Value}");
 
+            // Replace the existing Color line with the updated RGB values from the track bars.
+            newFileContent = Regex.Replace(newFileContent, @"Color\s*=\s*Color\s*\(red:\s*\d+,\s*green:\s*\d+,\s*blue:\s*\d+,\s*alpha:\s*[\d.]+f\s*\)",
+                $"Color = Color(red: {trackBarRed.Value}, green: {trackBarGreen.Value}, blue: {trackBarBlue.Value}, alpha: 1f)");
+
             // Save the modified contents back to the file.
             File.WriteAllText(selectedFilePath, newFileContent);
 
-            // Update the TextBox with the new file content.
+            // Restore the scroll position.
             textBox1.Text = newFileContent;
         }
 
+
     }
+
+
+
 }

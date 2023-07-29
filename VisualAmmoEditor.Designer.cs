@@ -1,6 +1,6 @@
 ﻿namespace csharpSCConfigBuilder
 {
-    partial class Form1
+    partial class VisualAmmoEditor
     {
         /// <summary>
         ///  Required designer variable.
@@ -31,7 +31,7 @@
             comboBox1 = new ComboBox();
             labelDirectory = new Label();
             button1 = new Button();
-            label2 = new Label();
+            labelCurrentMode = new Label();
             trackBar1 = new TrackBar();
             textBox1 = new TextBox();
             labelBaseDamage = new Label();
@@ -43,10 +43,20 @@
             labelMaxLifeTime = new Label();
             trackBar4 = new TrackBar();
             buttonHelp = new Button();
+            trackBarRed = new TrackBar();
+            trackBarGreen = new TrackBar();
+            trackBarBlue = new TrackBar();
+            labelRed = new Label();
+            labelGreen = new Label();
+            labelBlue = new Label();
+            panelColor = new Panel();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBar4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRed).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarGreen).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarBlue).BeginInit();
             SuspendLayout();
             // 
             // comboBox1
@@ -78,14 +88,14 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // label2
+            // labelCurrentMode
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(12, 635);
-            label2.Name = "label2";
-            label2.Size = new Size(81, 15);
-            label2.TabIndex = 4;
-            label2.Text = "Current Mode";
+            labelCurrentMode.AutoSize = true;
+            labelCurrentMode.Location = new Point(12, 635);
+            labelCurrentMode.Name = "labelCurrentMode";
+            labelCurrentMode.Size = new Size(81, 15);
+            labelCurrentMode.TabIndex = 4;
+            labelCurrentMode.Text = "Current Mode";
             // 
             // trackBar1
             // 
@@ -101,9 +111,11 @@
             // 
             // textBox1
             // 
+            textBox1.BackColor = SystemColors.ButtonHighlight;
             textBox1.Location = new Point(12, 295);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
             textBox1.ScrollBars = ScrollBars.Both;
             textBox1.Size = new Size(776, 316);
             textBox1.TabIndex = 6;
@@ -116,6 +128,7 @@
             labelBaseDamage.Size = new Size(75, 15);
             labelBaseDamage.TabIndex = 7;
             labelBaseDamage.Text = "BaseDamage";
+            labelBaseDamage.TextAlign = ContentAlignment.TopCenter;
             // 
             // button2
             // 
@@ -135,6 +148,7 @@
             labelMaxTrajectory.Size = new Size(81, 15);
             labelMaxTrajectory.TabIndex = 10;
             labelMaxTrajectory.Text = "MaxTrajectory";
+            labelMaxTrajectory.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBar2
             // 
@@ -155,6 +169,7 @@
             labelDesiredSpeed.Size = new Size(78, 15);
             labelDesiredSpeed.TabIndex = 12;
             labelDesiredSpeed.Text = "DesiredSpeed";
+            labelDesiredSpeed.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBar3
             // 
@@ -175,6 +190,7 @@
             labelMaxLifeTime.Size = new Size(75, 15);
             labelMaxLifeTime.TabIndex = 14;
             labelMaxLifeTime.Text = "MaxLifeTime";
+            labelMaxLifeTime.TextAlign = ContentAlignment.TopCenter;
             // 
             // trackBar4
             // 
@@ -196,11 +212,80 @@
             buttonHelp.Text = "?";
             buttonHelp.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // trackBarRed
+            // 
+            trackBarRed.Location = new Point(490, 230);
+            trackBarRed.Maximum = 255;
+            trackBarRed.Name = "trackBarRed";
+            trackBarRed.Size = new Size(104, 45);
+            trackBarRed.TabIndex = 16;
+            // 
+            // trackBarGreen
+            // 
+            trackBarGreen.Location = new Point(587, 230);
+            trackBarGreen.Maximum = 255;
+            trackBarGreen.Name = "trackBarGreen";
+            trackBarGreen.Size = new Size(104, 45);
+            trackBarGreen.TabIndex = 17;
+            // 
+            // trackBarBlue
+            // 
+            trackBarBlue.Location = new Point(684, 230);
+            trackBarBlue.Maximum = 255;
+            trackBarBlue.Name = "trackBarBlue";
+            trackBarBlue.Size = new Size(104, 45);
+            trackBarBlue.TabIndex = 18;
+            // 
+            // labelRed
+            // 
+            labelRed.AutoSize = true;
+            labelRed.Location = new Point(524, 213);
+            labelRed.Name = "labelRed";
+            labelRed.Size = new Size(27, 15);
+            labelRed.TabIndex = 21;
+            labelRed.Text = "Red";
+            labelRed.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // labelGreen
+            // 
+            labelGreen.AutoSize = true;
+            labelGreen.Location = new Point(618, 213);
+            labelGreen.Name = "labelGreen";
+            labelGreen.Size = new Size(38, 15);
+            labelGreen.TabIndex = 22;
+            labelGreen.Text = "Green";
+            labelGreen.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // labelBlue
+            // 
+            labelBlue.AutoSize = true;
+            labelBlue.Location = new Point(719, 213);
+            labelBlue.Name = "labelBlue";
+            labelBlue.Size = new Size(30, 15);
+            labelBlue.TabIndex = 23;
+            labelBlue.Text = "Blue";
+            labelBlue.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // panelColor
+            // 
+            panelColor.BackColor = SystemColors.Control;
+            panelColor.Location = new Point(587, 108);
+            panelColor.Name = "panelColor";
+            panelColor.Size = new Size(104, 82);
+            panelColor.TabIndex = 24;
+            // 
+            // VisualAmmoEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 659);
+            Controls.Add(panelColor);
+            Controls.Add(labelBlue);
+            Controls.Add(labelGreen);
+            Controls.Add(labelRed);
+            Controls.Add(trackBarBlue);
+            Controls.Add(trackBarGreen);
+            Controls.Add(trackBarRed);
             Controls.Add(buttonHelp);
             Controls.Add(labelMaxLifeTime);
             Controls.Add(trackBar4);
@@ -212,17 +297,20 @@
             Controls.Add(labelBaseDamage);
             Controls.Add(textBox1);
             Controls.Add(trackBar1);
-            Controls.Add(label2);
+            Controls.Add(labelCurrentMode);
             Controls.Add(button1);
             Controls.Add(labelDirectory);
             Controls.Add(comboBox1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            Name = "Form1";
+            Name = "VisualAmmoEditor";
             Text = "SCConfigBuilder";
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBar2).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBar3).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBar4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarRed).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarGreen).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarBlue).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -231,7 +319,7 @@
         private ComboBox comboBox1;
         private Label labelDirectory;
         private Button button1;
-        private Label label2;
+        private Label labelCurrentMode;
         private TrackBar trackBar1;
         private TextBox textBox1;
         private Label labelBaseDamage;
@@ -243,5 +331,12 @@
         private Label labelMaxLifeTime;
         private TrackBar trackBar4;
         private Button buttonHelp;
+        private TrackBar trackBarRed;
+        private TrackBar trackBarGreen;
+        private TrackBar trackBarBlue;
+        private Label labelRed;
+        private Label labelGreen;
+        private Label labelBlue;
+        private Panel panelColor;
     }
 }
