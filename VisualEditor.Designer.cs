@@ -545,11 +545,13 @@
             // timerRotation
             // 
             timerRotation.Enabled = true;
+            timerRotation.Interval = 10;
             timerRotation.Tick += timerRotation_Tick;
             // 
             // timerElevation
             // 
             timerElevation.Enabled = true;
+            timerElevation.Interval = 10;
             timerElevation.Tick += timerElevation_Tick;
             // 
             // VisualEditor

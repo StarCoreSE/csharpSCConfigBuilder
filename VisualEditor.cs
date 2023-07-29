@@ -463,7 +463,7 @@ namespace csharpSCConfigBuilder
             {
                 numericUpDownRotateRate.Enabled = true;
                 numericUpDownRotateRate.Value = (decimal)rotateRate;
-                labelRotateRate.Text = $"Rotate Rate: {rotateRate:F3} rad/s";
+                labelRotateRate.Text = $"Rotate Rate: {rotateRate:F3} rad/t";
             }
             else
             {
@@ -476,7 +476,7 @@ namespace csharpSCConfigBuilder
             {
                 numericUpDownElevateRate.Enabled = true;
                 numericUpDownElevateRate.Value = (decimal)elevateRate;
-                labelElevateRate.Text = $"Elevate Rate: {elevateRate:F3} rad/s";
+                labelElevateRate.Text = $"Elevate Rate: {elevateRate:F3} rad/t";
             }
             else
             {
@@ -510,7 +510,7 @@ namespace csharpSCConfigBuilder
             float rotateRate = (float)numericUpDownRotateRate.Value;
 
             // Update the label displaying the RotateRate value in radians per second
-            labelRotateRate.Text = $"Rotate Rate: {rotateRate:F3} rad/s";
+            labelRotateRate.Text = $"Rotate Rate: {rotateRate:F3} rad/t";
         }
 
         private void numericUpDownElevateRate_ValueChanged(object sender, EventArgs e)
@@ -519,7 +519,7 @@ namespace csharpSCConfigBuilder
             float elevateRate = (float)numericUpDownElevateRate.Value;
 
             // Update the label displaying the ElevateRate value in radians per second
-            labelElevateRate.Text = $"Elevate Rate: {elevateRate:F3} rad/s";
+            labelElevateRate.Text = $"Elevate Rate: {elevateRate:F3} rad/t";
         }
 
         private void buttonWeaponSave_Click(object sender, EventArgs e)
@@ -569,15 +569,9 @@ namespace csharpSCConfigBuilder
             labelReloadTime.Text = $"Reload Time = {trackBarReloadTime.Value} ms";
         }
 
-        // Declare a variable to store the current rotation angle.
-        private float rotationAngle = 0.0f;
-        // Declare a variable to store the current elevation angle.
-        private float elevationAngle = 0.0f;
+        private float rotationAngle = 0.0f; // Current rotation angle in degrees.
+        private float elevationAngle = 0.0f; // Current elevation angle in degrees.
 
-        private float minElevationAngle = -90.0f;
-        private float maxElevationAngle = 90.0f;
-
-        // //clusterfuck of a graphic preview, oh god
         private void pictureBoxRotateRate_Paint(object sender, PaintEventArgs e)
         {
             // Create a Graphics object from the PaintEventArgs.
@@ -624,10 +618,10 @@ namespace csharpSCConfigBuilder
         private void timerRotation_Tick(object sender, EventArgs e)
         {
             // Get the current RotateRate from the number box.
-            float rotateRate = (float)numericUpDownRotateRate.Value;
+            float rotateRate = (float)numericUpDownRotateRate.Value; // Convert to radians per game tick.
 
             // Calculate the change in rotation angle based on the elapsed time and RotateRate.
-            float elapsedTimeInSeconds = timerRotation.Interval / 10.0f;
+            float elapsedTimeInSeconds = timerRotation.Interval * 4f; // Convert interval to seconds.
             float rotationChange = rotateRate * elapsedTimeInSeconds;
 
             // Update the rotation angle.
@@ -636,8 +630,6 @@ namespace csharpSCConfigBuilder
             // Trigger an immediate redraw of the picture box.
             pictureBoxRotateRate.Refresh();
         }
-
-        private bool rotateClockwise = true;
 
         private void pictureBoxElevateRate_Paint(object sender, PaintEventArgs e)
         {
@@ -648,36 +640,34 @@ namespace csharpSCConfigBuilder
             int centerX = pictureBoxElevateRate.Width / 2;
             int centerY = pictureBoxElevateRate.Height / 2;
 
-            // Calculate the radius of the arc.
+            // Calculate the radius of the circle.
             int radius = 20;
 
-            // Create a pen to define the color and thickness of the arc's outline.
-            Pen penArc = new Pen(Color.Blue, 2);
+            // Create a pen to define the color and thickness of the circle's outline.
+            Pen penCircle = new Pen(Color.Blue, 2);
 
-            // Draw the arc on the PictureBox with its center at (centerX, centerY).
-            // The arc will start at 270 degrees (right side) and sweep for 180 degrees in the clockwise direction.
-            g.DrawArc(penArc, centerX - radius, centerY - radius, radius * 2, radius * 2, 270, 180);
+            // Draw the circle on the PictureBox with its center at (centerX, centerY).
+            g.DrawEllipse(penCircle, centerX - radius, centerY - radius, radius * 2, radius * 2);
 
-            // Dispose of the penArc to release resources.
-            penArc.Dispose();
+            // Dispose of the penCircle to release resources.
+            penCircle.Dispose();
 
             // Create a pen for drawing the line (use a different color, e.g., Color.Green).
             Pen penLine = new Pen(Color.Green, 2);
 
-            // Define the starting point of the line (center of the arc's base).
+            // Define the starting point of the line (center of the circle).
             Point startPoint = new Point(centerX, centerY);
 
-            // Calculate the angle to draw the line at based on the current elevation angle.
-            float angleInDegrees = 270.0f + elevationAngle; // Make 0 degrees at the right side of the arc.
-            double angleInRadians = angleInDegrees * Math.PI / 180.0;
-
-            // Calculate the endpoint of the line using trigonometry with a fixed line length of 50.
+            // Define the length of the line.
             int lineLength = 50;
+
+            // Calculate the ending point of the line based on the current elevation angle.
+            double angleInRadians = elevationAngle * Math.PI / 180.0;
             int lineEndX = centerX + (int)(lineLength * Math.Cos(angleInRadians));
             int lineEndY = centerY - (int)(lineLength * Math.Sin(angleInRadians)); // Negative sign because Y-axis is inverted.
             Point endPoint = new Point(lineEndX, lineEndY);
 
-            // Draw the line from the center of the arc's base towards the top (elevation direction).
+            // Draw the line from the center of the circle towards the top (elevation direction).
             g.DrawLine(penLine, startPoint, endPoint);
 
             // Dispose of the penLine to release resources.
@@ -687,36 +677,19 @@ namespace csharpSCConfigBuilder
         private void timerElevation_Tick(object sender, EventArgs e)
         {
             // Get the current ElevateRate from the number box.
-            float elevateRate = (float)numericUpDownElevateRate.Value;
+            float elevateRate = (float)numericUpDownElevateRate.Value; // Convert to radians per game tick.
 
             // Calculate the change in elevation angle based on the elapsed time and ElevateRate.
-            float elapsedTimeInSeconds = timerElevation.Interval / 10.0f;
+            float elapsedTimeInSeconds = timerElevation.Interval * 4f; // Convert interval to seconds.
             float elevationChange = elevateRate * elapsedTimeInSeconds;
 
-            // Update the elevation angle based on the rotation direction.
-            if (rotateClockwise)
-            {
-                elevationAngle += elevationChange; // Rotate clockwise.
-                if (elevationAngle >= 180.0f)
-                {
-                    elevationAngle = 180.0f;
-                    rotateClockwise = false;
-                }
-            }
-            else
-            {
-                elevationAngle -= elevationChange; // Rotate counterclockwise.
-                if (elevationAngle <= 0.0f)
-                {
-                    elevationAngle = 0.0f;
-                    rotateClockwise = true;
-                }
-            }
+            // Update the elevation angle.
+            elevationAngle += elevationChange;
 
             // Trigger an immediate redraw of the picture box for elevation.
             pictureBoxElevateRate.Refresh();
         }
-        // Form Load event handler (subscribe to the Timer.Tick event and start the timer)
+
         private void VisualEditor_Load(object sender, EventArgs e)
         {
             // ...
