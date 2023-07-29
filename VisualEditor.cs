@@ -129,21 +129,21 @@ namespace csharpSCConfigBuilder
         {
             int maxTrajectory = GetConfigValueFromRegex(fileContent, @"MaxTrajectory = (\d+)");
             trackBarMaxTrajectory.Value = maxTrajectory;
-            labelMaxTrajectory.Text = $"MaxTrajectory = {maxTrajectory}";
+            labelMaxTrajectory.Text = $"MaxTrajectory = {maxTrajectory} m";
         }
 
         private void UpdateDesiredSpeed(string fileContent)
         {
             int desiredSpeed = GetConfigValueFromRegex(fileContent, @"DesiredSpeed = (\d+)");
             trackBarDesiredSpeed.Value = desiredSpeed;
-            labelDesiredSpeed.Text = $"DesiredSpeed = {desiredSpeed}";
+            labelDesiredSpeed.Text = $"DesiredSpeed = {desiredSpeed} m/s";
         }
 
         private void UpdateMaxLifetime(string fileContent)
         {
             int maxLifetime = GetConfigValueFromRegex(fileContent, @"MaxLifeTime = (\d+)");
             trackBarMaxLifetime.Value = maxLifetime;
-            labelMaxLifeTime.Text = $"MaxLifeTime = {maxLifetime}";
+            labelMaxLifeTime.Text = $"MaxLifeTime = {maxLifetime} ms";
         }
 
         private void trackBar1_ValueChanged(object sender, EventArgs e)
@@ -155,19 +155,19 @@ namespace csharpSCConfigBuilder
         private void trackBar2_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the MaxTrajectory value.
-            labelMaxTrajectory.Text = $"MaxTrajectory = {trackBarMaxTrajectory.Value}";
+            labelMaxTrajectory.Text = $"MaxTrajectory = {trackBarMaxTrajectory.Value} m";
         }
 
         private void trackBar3_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the DesiredSpeed value.
-            labelDesiredSpeed.Text = $"DesiredSpeed = {trackBarDesiredSpeed.Value}";
+            labelDesiredSpeed.Text = $"DesiredSpeed = {trackBarDesiredSpeed.Value} m/s";
         }
 
         private void trackBar4_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the MaxLifetime value.
-            labelMaxLifeTime.Text = $"MaxLifeTime = {trackBarMaxLifetime.Value}";
+            labelMaxLifeTime.Text = $"MaxLifeTime = {trackBarMaxLifetime.Value} ms";
         }
 
         private void buttonAmmoSelectDir_Click(object sender, EventArgs e)
@@ -427,7 +427,7 @@ namespace csharpSCConfigBuilder
 
             // Update the slider or numeric up-down control for RateOfFire
             trackBarRateOfFire.Value = rateOfFire;
-            labelRateOfFire.Text = $"Rate of Fire: {rateOfFire}";
+            labelRateOfFire.Text = $"Rate of Fire: {rateOfFire} rpm";
 
             // Update the slider or numeric up-down control for ReloadTime
             trackBarReloadTime.Value = reloadTime;
@@ -469,7 +469,7 @@ namespace csharpSCConfigBuilder
         private void trackBarRateOfFire_ValueChanged(object sender, EventArgs e)
         {
             // Update the label displaying the Rate of Fire value in real-time.
-            labelRateOfFire.Text = $"Rate of Fire = {trackBarRateOfFire.Value}";
+            labelRateOfFire.Text = $"Rate of Fire = {trackBarRateOfFire.Value} rpm";
         }
 
         private void trackBarReloadTime_ValueChanged(object sender, EventArgs e)

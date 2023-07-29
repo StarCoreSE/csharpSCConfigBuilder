@@ -39,7 +39,7 @@
                     RateOfFire = 1842,
                     BarrelsPerShot = 1,
                     TrajectilesPerBarrel = 1,
-                    ReloadTime = 2012,
+                    ReloadTime = 2145,
                     MagsToLoad = 1,
                 },
                 Audio = new HardPointAudioDef
