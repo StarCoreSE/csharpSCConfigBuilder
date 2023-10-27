@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            tabControl1 = new TabControl();
+            PointCalc = new TabControl();
             tabAmmo = new TabPage();
             panelColor = new Panel();
             labelBlue = new Label();
@@ -69,9 +69,10 @@
             buttonHelpWeapon = new Button();
             buttonWeaponSelectDir = new Button();
             comboBoxWeaponSelect = new ComboBox();
+            tabPointCalc = new TabPage();
             timerRotation = new System.Windows.Forms.Timer(components);
             timerElevation = new System.Windows.Forms.Timer(components);
-            tabControl1.SuspendLayout();
+            PointCalc.SuspendLayout();
             tabAmmo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBlue).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarGreen).BeginInit();
@@ -89,15 +90,18 @@
             ((System.ComponentModel.ISupportInitialize)trackBarRateOfFire).BeginInit();
             SuspendLayout();
             // 
-            // tabControl1
+            // PointCalc
             // 
-            tabControl1.Controls.Add(tabAmmo);
-            tabControl1.Controls.Add(tabWeapon);
-            tabControl1.Location = new Point(12, 12);
-            tabControl1.Name = "tabControl1";
-            tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(833, 709);
-            tabControl1.TabIndex = 25;
+            PointCalc.AccessibleName = "";
+            PointCalc.Controls.Add(tabAmmo);
+            PointCalc.Controls.Add(tabWeapon);
+            PointCalc.Controls.Add(tabPointCalc);
+            PointCalc.Location = new Point(12, 12);
+            PointCalc.Name = "PointCalc";
+            PointCalc.SelectedIndex = 0;
+            PointCalc.Size = new Size(833, 709);
+            PointCalc.TabIndex = 25;
+            PointCalc.Click += PointCalc_Click;
             // 
             // tabAmmo
             // 
@@ -542,6 +546,16 @@
             comboBoxWeaponSelect.TabIndex = 40;
             comboBoxWeaponSelect.SelectedIndexChanged += ComboBoxWeaponSelect_SelectedIndexChanged;
             // 
+            // tabPointCalc
+            // 
+            tabPointCalc.Location = new Point(4, 24);
+            tabPointCalc.Name = "tabPointCalc";
+            tabPointCalc.Padding = new Padding(3);
+            tabPointCalc.Size = new Size(825, 681);
+            tabPointCalc.TabIndex = 2;
+            tabPointCalc.Text = "PointCalc";
+            tabPointCalc.UseVisualStyleBackColor = true;
+            // 
             // timerRotation
             // 
             timerRotation.Enabled = true;
@@ -559,11 +573,11 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(857, 735);
-            Controls.Add(tabControl1);
+            Controls.Add(PointCalc);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "VisualEditor";
             Text = "SCConfigBuilder";
-            tabControl1.ResumeLayout(false);
+            PointCalc.ResumeLayout(false);
             tabAmmo.ResumeLayout(false);
             tabAmmo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBarBlue).EndInit();
@@ -606,7 +620,7 @@
         private Button buttonAmmoSelectDir;
         private Label labelDisplayAmmoDir;
         private ComboBox comboBoxAmmoSelect;
-        private TabControl tabControl1;
+        private TabControl PointCalc;
         private TabPage tabAmmo;
         private TabPage tabWeapon;
         private Button buttonHelpWeapon;
@@ -627,5 +641,6 @@
         private System.Windows.Forms.Timer timerRotation;
         private PictureBox pictureBoxElevateRate;
         private System.Windows.Forms.Timer timerElevation;
+        private TabPage tabPointCalc;
     }
 }

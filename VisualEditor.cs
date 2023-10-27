@@ -703,7 +703,10 @@ namespace csharpSCConfigBuilder
             // ...
         }
 
+        private void PointCalc_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 
 
